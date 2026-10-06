@@ -1,0 +1,100 @@
+{
+  "title": "Attention Is All You Need",
+  "authors": [
+    "Ashish Vaswani",
+    "Noam Shazeer",
+    "Niki Parmar",
+    "Jakob Uszkoreit",
+    "Llion Jones",
+    "Aidan N. Gomez",
+    "Łukasz Kaiser",
+    "Illia Polosukhin"
+  ],
+  "year": 2017,
+  "paper_type": "Foundational Research Paper",
+  "difficulty": "Intermediate",
+  "domain": "Large Language Models",
+  "subdomain": "Transformer Architecture",
+  "publication_type": "Conference Paper",
+  "source": "Original Research Paper",
+  "doi": "10.48550/arXiv.1706.03762",
+  "language": "English",
+  "task": [
+    "Neural Machine Translation",
+    "Sequence-to-Sequence Learning",
+    "Sequence Modeling"
+  ],
+  "datasets": [
+    {
+      "name": "WMT 2014 English-German",
+      "details": {
+        "sentence_pairs": "Approximately 4.5 million",
+        "vocabulary": "37K shared BPE vocabulary"
+      }
+    },
+    {
+      "name": "WMT 2014 English-French",
+      "details": {
+        "sentence_pairs": "Approximately 36 million",
+        "vocabulary": "32K word-piece vocabulary"
+      }
+    },
+    {
+      "name": "English Constituency Parsing",
+      "details": {
+        "purpose": "Generalization experiment"
+      }
+    }
+  ],
+  "evaluation_metrics": [
+    "BLEU Score",
+    "Perplexity",
+    "Parsing Accuracy"
+  ],
+  "keywords": [
+    "Transformer",
+    "Attention",
+    "Self-Attention",
+    "Scaled Dot-Product Attention",
+    "Multi-Head Attention",
+    "Encoder",
+    "Decoder",
+    "Encoder-Decoder Architecture",
+    "Encoder-Decoder Attention",
+    "Masked Self-Attention",
+    "Positional Encoding",
+    "Feed Forward Network",
+    "Residual Connection",
+    "Layer Normalization",
+    "Embeddings",
+    "Sequence Modeling",
+    "Neural Machine Translation",
+    "Autoregressive Decoding",
+    "Parallel Training",
+    "Attention Mechanism",
+    "Query",
+    "Key",
+    "Value",
+    "Byte Pair Encoding",
+    "Beam Search",
+    "Label Smoothing",
+    "Adam Optimizer",
+    "Learning Rate Warm-up",
+    "Softmax",
+    "Context Representation"
+  ],
+  "related_topics": [
+    "BERT",
+    "GPT",
+    "T5",
+    "Vision Transformer (ViT)",
+    "LLaMA",
+    "Gemini",
+    "Claude",
+    "Retrieval-Augmented Generation (RAG)",
+    "Large Language Models",
+    "Efficient Transformers",
+    "Long-Context Models",
+    "Multimodal AI"
+  ]
+}
