@@ -1,0 +1,2633 @@
+[
+  {
+    "id": "transformer-overview-001",
+    "question": "What problem did the Transformer address, and what are its main architectural components?",
+    "reference_answer": "The Transformer addressed the sequential computation and limited parallelism of recurrent sequence models by using attention without recurrent or convolutional layers. It uses encoder and decoder stacks built from attention and position-wise feed-forward sublayers, with residual connections, layer normalization, and positional encodings.",
+    "expected_facts": [
+      "It was proposed as an attention-only sequence-transduction architecture.",
+      "It removes recurrence and convolution and improves parallel processing.",
+      "It has encoder and decoder stacks, attention, feed-forward networks, residual connections, and layer normalization.",
+      "Positional encodings supply token-order information."
+    ],
+    "generated_answer": "The Transformer was designed to perform sequence transduction tasks using only attention mechanisms, which allowed it to completely eliminate the need for recurrent neural networks (RNNs) and convolutional neural networks (CNNs) [chunk_id: attention_is_all_you_need_key_concepts_0000]. By processing all tokens in a sequence simultaneously, it enables highly parallel computation during training [chunk_id: attention_is_all_you_need_key_concepts_0000].\n\nThe Transformer architecture is composed of the following main components:\n\n*   **Encoder and Decoder:** The model follows an encoder-decoder architecture [chunk_id: attention_is_all_you_need_key_concepts_0000]. The encoder consists of 6 identical layers [chunk_id: attention_is_all_you_need_key_concepts_0035].\n*   **Attention Mechanisms:** It utilizes Multi-Head Attention, Scaled Dot-Product Attention, and (in the decoder) Encoder-Decoder Attention [chunk_id: attention_is_all_you_need_paper_statistics_0012, chunk_id: attention_is_all_you_need_key_concepts_0002].\n*   **Processing Layers:** Each layer includes a Feed Forward Network [chunk_id: attention_is_all_you_need_paper_statistics_0012, chunk_id: attention_is_all_you_need_key_concepts_0002].\n*   **Structural Components:** The architecture incorporates Positional Encoding (to provide positional information since there is no recurrence), Residual Connections, and Layer Normalization [chunk_id: attention_is_all_you_need_paper_statistics_0012, chunk_id: attention_is_all_you_need_key_concepts_0002].\n*   **Output:** It uses a Softmax Output Layer [chunk_id: attention_is_all_you_need_paper_statistics_0012].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Paper Statistics",
+        "Header 2": "Architectural Components",
+        "section": "Paper Statistics > Architectural Components",
+        "chunk_id": "attention_is_all_you_need_paper_statistics_0012"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Encoder",
+        "Header 2": "What is it?",
+        "section": "Encoder > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0035"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Transformer",
+        "Header 2": "What is it?",
+        "section": "Transformer > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0000"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Transformer",
+        "Header 2": "How does it work?",
+        "section": "Transformer > How does it work?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0002"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 1 — Transformer Architecture",
+        "Header 2": "Why It Is Important",
+        "section": "Figure 1 — Transformer Architecture > Why It Is Important",
+        "chunk_id": "attention_is_all_you_need_important_figures_0003"
+      }
+    ],
+    "answerable": true,
+    "category": "architecture_and_motivation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "transformer-concepts-001",
+    "question": "In self-attention, where do Q, K, and V come from, and how does a token use them to form its contextual representation?",
+    "reference_answer": "Q, K, and V are projections derived from the same input sequence. A token's query is compared with the keys of the tokens, the resulting attention weights are applied to the values, and the weighted values form the token's contextual representation.",
+    "expected_facts": [
+      "Q, K, and V derive from the same sequence.",
+      "Queries are compared against keys to compute attention weights.",
+      "The weights combine values to form contextual representations."
+    ],
+    "generated_answer": "In self-attention, the Queries (Q), Keys (K), and Values (V) are all derived from the same input sequence [chunk_id: attention_is_all_you_need_key_concepts_0007, chunk_id: attention_is_all_you_need_key_concepts_0012]. Each individual token in that sequence is transformed into these three distinct vectors through learned linear projections [chunk_id: attention_is_all_you_need_key_concepts_0028, chunk_id: attention_is_all_you_need_key_concepts_0033].\n\nTo form a contextual representation, a token uses these vectors in the following way:\n\n1.  **Determining Relationships:** Every token computes relationships with every other token in the sequence by measuring the similarity between its Query vector and the Key vectors of all other tokens [chunk_id: attention_is_all_you_need_key_concepts_0007, chunk_id: attention_is_all_you_need_important_equations_0000].\n2.  **Calculating Weights:** These similarity scores are scaled by the square root of the dimension of the Key vectors ($\\sqrt{d_k}$) and then passed through a Softmax function to produce attention weights [chunk_id: attention_is_all_you_need_important_equations_0000].\n3.  **Creating Context:** Finally, these attention weights are multiplied by the Value vectors [chunk_id: attention_is_all_you_need_important_equations_0000]. This process allows each token to move beyond processing words independently and instead build a representation that incorporates information from all other tokens in the sequence [chunk_id: attention_is_all_you_need_key_concepts_0007].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Self-Attention",
+        "Header 2": "What is it?",
+        "section": "Self-Attention > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0007"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Self-Attention",
+        "Header 2": "Important Points",
+        "section": "Self-Attention > Important Points",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0012"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Query, Key and Value (Q, K, V)",
+        "Header 2": "Important Points",
+        "section": "Query, Key and Value (Q, K, V) > Important Points",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0033"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Query, Key and Value (Q, K, V)",
+        "Header 2": "What are they?",
+        "section": "Query, Key and Value (Q, K, V) > What are they?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0028"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_equations.md",
+        "Header 1": "Equation 1 — Scaled Dot-Product Attention",
+        "section": "Equation 1 — Scaled Dot-Product Attention",
+        "chunk_id": "attention_is_all_you_need_important_equations_0000"
+      }
+    ],
+    "answerable": true,
+    "category": "mechanism",
+    "difficulty": "medium"
+  },
+  {
+    "id": "transformer-equations-001",
+    "question": "Give the scaled dot-product attention formula and explain why the dot product is divided by the square root of dk.",
+    "reference_answer": "Attention(Q, K, V) = softmax(QK^T / sqrt(dk))V. The dot products are scaled by sqrt(dk) before softmax; this is the scaled attention computation used to produce the weights applied to V.",
+    "expected_facts": [
+      "The formula is softmax(QK^T / sqrt(dk))V.",
+      "QK^T similarities are scaled by sqrt(dk) before softmax.",
+      "The resulting attention weights are applied to V."
+    ],
+    "generated_answer": "The formula for Scaled Dot-Product Attention is [chunk_id: attention_is_all_you_need_key_concepts_0014, attention_is_all_you_need_important_equations_0000]:\n\n**Attention(Q, K, V) = Softmax((QKᵀ) / √dk) V**\n\nIn this formula:\n*   **Q** is the Query matrix [chunk_id: attention_is_all_you_need_key_concepts_0014].\n*   **K** is the Key matrix [chunk_id: attention_is_all_you_need_key_concepts_0014].\n*   **V** is the Value matrix [chunk_id: attention_is_all_you_need_key_concepts_0014].\n*   **dk** is the dimension of the key vectors [chunk_id: attention_is_all_you_need_key_concepts_0014].\n\n### Why do we divide by √dk?\nThe scaling factor of √dk is used to stabilize the training process [chunk_id: attention_is_all_you_need_key_concepts_0015]. \n\nWhen the dimensionality of the key vectors (dk) becomes large, the resulting dot products can grow very large in magnitude [chunk_id: attention_is_all_you_need_key_concepts_0015]. If these values are fed directly into the Softmax function, it pushes the function into regions where the gradients become extremely small [chunk_id: attention_is_all_you_need_key_concepts_0015, attention_is_all_you_need_paper_overview_0025]. By dividing by √dk, the scores are scaled down, which prevents these excessively large values and improves the optimization of the model during training [chunk_id: attention_is_all_you_need_key_concepts_0015, attention_is_all_you_need_paper_overview_0025].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Scaled Dot-Product Attention",
+        "Header 2": "Why was it introduced?",
+        "section": "Scaled Dot-Product Attention > Why was it introduced?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0015"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Scaled Dot-Product Attention",
+        "Header 2": "How does it work?",
+        "section": "Scaled Dot-Product Attention > How does it work?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0016"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Scaled Dot-Product Attention",
+        "Header 2": "What is it?",
+        "section": "Scaled Dot-Product Attention > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0014"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_equations.md",
+        "Header 1": "Equation 1 — Scaled Dot-Product Attention",
+        "section": "Equation 1 — Scaled Dot-Product Attention",
+        "chunk_id": "attention_is_all_you_need_important_equations_0000"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "Attention Mechanism",
+        "section": "Model Architecture > Attention Mechanism",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0025"
+      }
+    ],
+    "answerable": true,
+    "category": "equation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "transformer-figures-001",
+    "question": "What major stages and components are depicted in the Transformer architecture figure?",
+    "reference_answer": "The figure presents input processing followed by an encoder stack and a decoder stack, with the decoder producing outputs through an output layer. The architecture uses attention and feed-forward sublayers and incorporates positional information.",
+    "expected_facts": [
+      "The diagram distinguishes input processing, encoder stack, decoder stack, and output layer.",
+      "The encoder and decoder are composed of repeated layers.",
+      "Attention is central to the architecture."
+    ],
+    "generated_answer": "The Transformer architecture figure (Figure 1) provides a complete overview of the model's structure and illustrates the flow of information between its two major components: the **Encoder Stack** and the **Decoder Stack** [chunk_id: attention_is_all_you_need_important_figures_0000, chunk_id: attention_is_all_you_need_important_figures_0003].\n\nThe figure demonstrates how the model uses attention mechanisms to replace recurrence while maintaining the encoder-decoder framework [chunk_id: attention_is_all_you_need_important_figures_0003]. Specifically, the architecture is composed of the following components:\n\n*   **Encoder and Decoder Stacks:** Each stack is made up of 6 identical layers [chunk_id: attention_is_all_you_need_paper_overview_0022].\n*   **Core Layer Components:** Within these layers, the model utilizes Multi-Head Self-Attention, position-wise Feed Forward Networks, Residual Connections, and Layer Normalization [chunk_id: attention_is_all_you_need_paper_overview_0012].\n*   **Positional Encoding:** Because the architecture does not use recurrence, Positional Encoding is included to help the model understand the order of tokens [chunk_id: attention_is_all_you_need_paper_overview_0012].\n*   **Additional Components:** The overall architecture also incorporates Scaled Dot-Product Attention and a Softmax Output Layer [chunk_id: attention_is_all_you_need_paper_statistics_0012].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "Overall Architecture",
+        "section": "Model Architecture > Overall Architecture",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0022"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Paper Statistics",
+        "Header 2": "Architectural Components",
+        "section": "Paper Statistics > Architectural Components",
+        "chunk_id": "attention_is_all_you_need_paper_statistics_0012"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 1 — Transformer Architecture",
+        "Header 2": "Purpose",
+        "section": "Figure 1 — Transformer Architecture > Purpose",
+        "chunk_id": "attention_is_all_you_need_important_figures_0000"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Proposed Solution",
+        "section": "Proposed Solution",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0012"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 1 — Transformer Architecture",
+        "Header 2": "Why It Is Important",
+        "section": "Figure 1 — Transformer Architecture > Why It Is Important",
+        "chunk_id": "attention_is_all_you_need_important_figures_0003"
+      }
+    ],
+    "answerable": true,
+    "category": "figure_interpretation",
+    "difficulty": "easy"
+  },
+  {
+    "id": "transformer-limitations-001",
+    "question": "Why does standard self-attention become expensive for long sequences, and what complexity does the knowledge base state?",
+    "reference_answer": "Every token attends to every other token, creating an n by n attention matrix for a sequence of n tokens. Its attention computation and memory therefore grow quadratically, O(n^2), which makes long sequences costly.",
+    "expected_facts": [
+      "Each query compares against keys for all tokens.",
+      "The attention matrix has n by n entries.",
+      "The stated complexity is O(n^2).",
+      "Long sequences increase compute and memory costs."
+    ],
+    "generated_answer": "Standard self-attention becomes expensive for long sequences because it requires every token in a sequence to interact with every other token [chunk_id: attention_is_all_you_need_limitations_0001]. \n\nWhen you have a sequence of **n** tokens, the model creates an attention matrix of size **n × n** [chunk_id: attention_is_all_you_need_limitations_0001]. As the sequence length increases, the number of computations and the amount of memory required grow significantly [chunk_id: attention_is_all_you_need_paper_overview_0042].\n\nThe knowledge base states that this results in **quadratic complexity**, which is represented as **O(n²)** [chunk_id: attention_is_all_you_need_limitations_0001, chunk_id: bert_paper_overview_0139]. Because of this, processing very long documents leads to higher computational costs, increased GPU memory usage, and longer training times [chunk_id: attention_is_all_you_need_limitations_0001].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "section": "Limitations",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0042"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "limitations.md",
+        "Header 1": "3. Inefficient Processing of Very Long Sequences",
+        "section": "3. Inefficient Processing of Very Long Sequences",
+        "chunk_id": "attention_is_all_you_need_limitations_0003"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations and Trade-offs",
+        "Header 2": "Attention Computational Cost",
+        "section": "Limitations and Trade-offs > Attention Computational Cost",
+        "chunk_id": "bert_paper_overview_0139"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "limitations.md",
+        "Header 1": "1. Quadratic Computational Complexity",
+        "section": "1. Quadratic Computational Complexity",
+        "chunk_id": "attention_is_all_you_need_limitations_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "limitations.md",
+        "Header 1": "Limitations",
+        "Header 2": "Quadratic Attention Cost",
+        "section": "Limitations > Quadratic Attention Cost",
+        "chunk_id": "bert_limitations_0003"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "medium"
+  },
+  {
+    "id": "transformer-statistics-001",
+    "question": "How did the Transformer Big model perform on the WMT 2014 English-to-German and English-to-French translation benchmarks?",
+    "reference_answer": "The Transformer Big achieved a BLEU score of 28.4 on WMT 2014 English-to-German and 41.8 on WMT 2014 English-to-French.",
+    "expected_facts": [
+      "English-to-German BLEU for Transformer Big: 28.4.",
+      "English-to-French BLEU for Transformer Big: 41.8."
+    ],
+    "generated_answer": "The Transformer (big) model performed exceptionally well on both benchmarks, achieving state-of-the-art results:\n\n*   **English-to-German:** The model achieved a BLEU score of **28.4** [chunk_id: attention_is_all_you_need_paper_overview_0037, attention_is_all_you_need_paper_statistics_0011]. This performance outperformed all previously published models, including ensemble methods, by more than 2 BLEU points [chunk_id: attention_is_all_you_need_paper_overview_0037].\n*   **English-to-French:** The model achieved a BLEU score of **41.8** [chunk_id: attention_is_all_you_need_paper_overview_0038, attention_is_all_you_need_paper_statistics_0011]. This established a new state-of-the-art result for single models while requiring less than one-fourth of the training cost of the previous best-performing model [chunk_id: attention_is_all_you_need_paper_overview_0038].\n\nThe BLEU score is the metric used to measure these results, which evaluates how similar the machine-generated translations are to human reference translations [chunk_id: attention_is_all_you_need_paper_overview_0036].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Results",
+        "Header 2": "English-to-German Translation",
+        "section": "Results > English-to-German Translation",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0037"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Results",
+        "Header 2": "English-to-French Translation",
+        "section": "Results > English-to-French Translation",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0038"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Results",
+        "section": "Results",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0036"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Paper Statistics",
+        "Header 2": "Experimental Results",
+        "section": "Paper Statistics > Experimental Results",
+        "chunk_id": "attention_is_all_you_need_paper_statistics_0011"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Experimental Setup",
+        "section": "Experimental Setup",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0035"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "transformer-applications-001",
+    "question": "Which task was the original paper's primary demonstration, and name two later application areas listed in the knowledge base.",
+    "reference_answer": "The original paper primarily demonstrated neural machine translation. Later application areas listed include large language models, conversational AI, text summarization, question answering, code generation, computer vision, speech processing, multimodal AI, and retrieval-augmented generation; any two of these satisfy the question.",
+    "expected_facts": [
+      "The primary demonstrated task was neural machine translation.",
+      "The architecture was subsequently applied beyond translation."
+    ],
+    "generated_answer": "The original paper primarily evaluated the Transformer on neural machine translation [attention_is_all_you_need_limitations_0005]. \n\nTwo later application areas for the Transformer mentioned in the knowledge base include computer vision and speech processing [attention_is_all_you_need_limitations_0005].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "limitations.md",
+        "Header 1": "5. Limited Evaluation Scope",
+        "section": "5. Limited Evaluation Scope",
+        "chunk_id": "attention_is_all_you_need_limitations_0005"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "Broader Impact",
+        "section": "Broader Impact",
+        "chunk_id": "gpt3_key_concepts_0020"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "applications.md",
+        "Header 1": "Code Completion",
+        "section": "Code Completion",
+        "chunk_id": "gpt3_applications_0011"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Framework",
+        "section": "Evaluation Framework",
+        "chunk_id": "gpt3_paper_overview_0031"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_figures.md",
+        "Header 1": "Summary",
+        "section": "Summary",
+        "chunk_id": "attention_is_all_you_need_important_figures_0009"
+      }
+    ],
+    "answerable": true,
+    "category": "application",
+    "difficulty": "easy"
+  },
+  {
+    "id": "transformer-terminology-001",
+    "question": "In encoder-decoder attention, which component supplies the queries, and which component supplies the keys and values?",
+    "reference_answer": "The decoder supplies the queries, while the encoder supplies the keys and values.",
+    "expected_facts": [
+      "Queries originate from the decoder.",
+      "Keys and values originate from the encoder."
+    ],
+    "generated_answer": "In encoder-decoder attention, the components function as follows:\n\n*   **Queries:** These originate from the decoder [chunk_id: attention_is_all_you_need_key_concepts_0084, 0089, 0010].\n*   **Keys and Values:** These originate from the encoder [chunk_id: attention_is_all_you_need_key_concepts_0084, 0089, 0010].\n\nThis mechanism allows the decoder to access information from the input sequence while it is generating the output [chunk_id: attention_is_all_you_need_key_concepts_0084].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Encoder-Decoder Attention",
+        "Header 2": "What is it?",
+        "section": "Encoder-Decoder Attention > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0084"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Encoder-Decoder Attention",
+        "Header 2": "How does it work?",
+        "section": "Encoder-Decoder Attention > How does it work?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0086"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Encoder-Decoder Attention",
+        "Header 2": "Important Points",
+        "section": "Encoder-Decoder Attention > Important Points",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0089"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "terminology.md",
+        "Header 1": "Encoder-Decoder Attention",
+        "section": "Encoder-Decoder Attention",
+        "chunk_id": "attention_is_all_you_need_terminology_0010"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_equations.md",
+        "Header 1": "Equation 2 — Multi-Head Attention",
+        "section": "Equation 2 — Multi-Head Attention",
+        "chunk_id": "attention_is_all_you_need_important_equations_0001"
+      }
+    ],
+    "answerable": true,
+    "category": "terminology",
+    "difficulty": "easy"
+  },
+  {
+    "id": "transformer-statistics-002",
+    "question": "How many encoder and decoder layers are in the base Transformer, and what is its embedding dimension?",
+    "reference_answer": "The base Transformer has 6 encoder layers, 6 decoder layers, and an embedding dimension of 512.",
+    "expected_facts": [
+      "Base encoder layers: 6.",
+      "Base decoder layers: 6.",
+      "Base embedding dimension: 512."
+    ],
+    "generated_answer": "In the base Transformer model, there are 6 encoder layers and 6 decoder layers [chunk_id: attention_is_all_you_need_paper_statistics_0002, attention_is_all_you_need_paper_overview_0022]. The embedding dimension (dmodel) for the base model is 512 [chunk_id: attention_is_all_you_need_paper_statistics_0002].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Paper Statistics",
+        "Header 2": "Model Configuration",
+        "section": "Paper Statistics > Model Configuration",
+        "chunk_id": "attention_is_all_you_need_paper_statistics_0002"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "Overall Architecture",
+        "section": "Model Architecture > Overall Architecture",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0022"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 1 — Transformer Architecture",
+        "Header 2": "Components Shown",
+        "section": "Figure 1 — Transformer Architecture > Components Shown",
+        "chunk_id": "attention_is_all_you_need_important_figures_0001"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Decoder",
+        "Header 2": "What is it?",
+        "section": "Decoder > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0042"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Encoder",
+        "Header 2": "What is it?",
+        "section": "Encoder > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0035"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "transformer-equations-002",
+    "question": "How does the original Transformer encode token order despite having no recurrence or convolution?",
+    "reference_answer": "It adds positional encodings to token embeddings. The knowledge base gives sinusoidal encodings, using sine for even dimensions and cosine for odd dimensions.",
+    "expected_facts": [
+      "Positional encodings are added to token embeddings.",
+      "The encodings provide token-order information.",
+      "The stated sinusoidal scheme uses sine for even dimensions and cosine for odd dimensions."
+    ],
+    "generated_answer": "The original Transformer encodes token order by using a mechanism called **Positional Encoding** [chunk_id: attention_is_all_you_need_key_concepts_0049]. \n\nBecause the Transformer architecture does not use recurrence or convolution, it has no built-in way to understand the order of words [chunk_id: attention_is_all_you_need_paper_overview_0029]. To solve this, the model explicitly adds positional information to the input embeddings [chunk_id: attention_is_all_you_need_paper_overview_0029].\n\nHere is how it works:\n*   **Sinusoidal Functions:** The model uses sine and cosine functions of different frequencies to create unique vectors for each token position [chunk_id: attention_is_all_you_need_paper_overview_0029, chunk_id: attention_is_all_you_need_important_equations_0004].\n*   **Mathematical Application:** Even dimensions of the embedding use sine functions, while odd dimensions use cosine functions [chunk_id: attention_is_all_you_need_important_equations_0004].\n*   **Generalization:** The authors chose these specific functions because they hypothesized that they would allow the model to generalize better to sequence lengths that were not seen during the training process [chunk_id: attention_is_all_you_need_paper_overview_0029].\n\nBy adding these positional vectors to the token embeddings, the model can distinguish the order of tokens while still processing the entire sequence in parallel [chunk_id: attention_is_all_you_need_important_equations_0004, chunk_id: attention_is_all_you_need_paper_overview_0012].",
+    "sources": [
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "key_concepts.md",
+        "Header 1": "Positional Encoding",
+        "Header 2": "What is it?",
+        "section": "Positional Encoding > What is it?",
+        "chunk_id": "attention_is_all_you_need_key_concepts_0049"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "Positional Encoding",
+        "section": "Model Architecture > Positional Encoding",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0029"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "important_equations.md",
+        "Header 1": "Equation 5 — Positional Encoding",
+        "section": "Equation 5 — Positional Encoding",
+        "chunk_id": "attention_is_all_you_need_important_equations_0004"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Key Takeaways",
+        "section": "Key Takeaways",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0044"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_overview.md",
+        "Header 1": "Proposed Solution",
+        "section": "Proposed Solution",
+        "chunk_id": "attention_is_all_you_need_paper_overview_0012"
+      }
+    ],
+    "answerable": true,
+    "category": "mechanism",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-overview-001",
+    "question": "What does BERT stand for, and what key limitation of unidirectional language-model pre-training does it address?",
+    "reference_answer": "BERT stands for Bidirectional Encoder Representations from Transformers. It addresses the limitation that a unidirectional model cannot use both left and right context for each token; BERT learns bidirectional representations using masked language modeling.",
+    "expected_facts": [
+      "BERT expands to Bidirectional Encoder Representations from Transformers.",
+      "BERT uses both left and right context.",
+      "Masked language modeling enables its bidirectional pre-training."
+    ],
+    "generated_answer": "BERT stands for **Bidirectional Encoder Representations from Transformers** [bert_key_concepts_0000, bert_paper_overview_0000].\n\nThe key limitation of traditional unidirectional language models is that they only allow a token to attend to information from one direction (such as only the tokens to its left) [bert_key_concepts_0000]. This restriction can be harmful for tasks like question answering, where understanding the context from both sides of a token is important [bert_key_concepts_0000]. BERT addresses this by using masked language modeling, which allows the model to jointly condition on both left and right context in all layers [bert_key_concepts_0000, bert_paper_overview_0009].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "BERT",
+        "section": "BERT",
+        "chunk_id": "bert_key_concepts_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "bert_paper_overview_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Problem Addressed",
+        "Header 2": "BERT's Solution",
+        "section": "Problem Addressed > BERT's Solution",
+        "chunk_id": "bert_paper_overview_0009"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Final Summary",
+        "section": "Final Summary",
+        "chunk_id": "bert_paper_overview_0169"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Main Contributions",
+        "section": "Main Contributions",
+        "chunk_id": "bert_paper_overview_0011"
+      }
+    ],
+    "answerable": true,
+    "category": "architecture_and_motivation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-concepts-001",
+    "question": "What are the two pre-training objectives used by BERT, and what does each train the model to do?",
+    "reference_answer": "BERT uses masked language modeling (MLM) to predict selected original tokens from their surrounding context, and next sentence prediction (NSP) to determine whether segment B is the actual next sentence after segment A.",
+    "expected_facts": [
+      "MLM predicts selected original tokens using context.",
+      "NSP predicts whether the second segment actually follows the first."
+    ],
+    "generated_answer": "BERT uses two unsupervised pre-training objectives to learn general language representations from unlabeled text [bert_paper_overview_0001, bert_paper_overview_0038]:\n\n1.  **Masked Language Modeling (MLM):** This objective trains the model to predict original tokens that have been hidden within a sequence [bert_key_concepts_0003]. By masking 15% of the input tokens, the model learns to use the surrounding context (both to the left and right) to determine what the missing word should be [bert_key_concepts_0003]. This approach allows BERT to perform deep bidirectional pre-training without the model \"seeing\" the word it is trying to predict [bert_key_concepts_0003].\n\n2.  **Next Sentence Prediction (NSP):** This objective trains the model to understand the relationship between two different text segments [bert_key_concepts_0004]. During training, the model is given two segments (A and B) and must predict whether B is the actual sentence that follows A in the original text, or if it is just a random sentence from the corpus [bert_key_concepts_0004]. The model makes this prediction using the `[CLS]` representation [bert_key_concepts_0004].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Main Idea",
+        "section": "Paper Overview > Main Idea",
+        "chunk_id": "bert_paper_overview_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Pre-training",
+        "section": "Pre-training",
+        "chunk_id": "bert_key_concepts_0005"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Next Sentence Prediction",
+        "section": "Next Sentence Prediction",
+        "chunk_id": "bert_key_concepts_0004"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Masked Language Model",
+        "section": "Masked Language Model",
+        "chunk_id": "bert_key_concepts_0003"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Pre-training",
+        "section": "Pre-training",
+        "chunk_id": "bert_paper_overview_0038"
+      }
+    ],
+    "answerable": true,
+    "category": "mechanism",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-equations-001",
+    "question": "How is a BERT input token representation constructed from embeddings?",
+    "reference_answer": "For token i, the input representation is the sum of its token, segment, and position embeddings: E_i = E_i^token + E_i^segment + E_i^position.",
+    "expected_facts": [
+      "The representation sums token embedding, segment embedding, and position embedding.",
+      "The formula is E_i = E_i^token + E_i^segment + E_i^position."
+    ],
+    "generated_answer": "To construct an input representation for each token in BERT, the model sums three specific types of embeddings together [bert_important_equations_0000, bert_paper_overview_0037]:\n\n1.  **Token embedding**: Represents the individual token itself [bert_important_equations_0000, bert_paper_overview_0036].\n2.  **Segment embedding**: Helps the model distinguish between different sentences when a pair of sentences is provided (e.g., identifying which tokens belong to sentence A versus sentence B) [bert_important_figures_0001, bert_key_concepts_0002].\n3.  **Position embedding**: Provides information about the specific position of the token within the sequence [bert_important_equations_0000].\n\nThis process is represented by the equation: $E_i = E_i^{token} + E_i^{segment} + E_i^{position}$ [bert_important_equations_0000].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "important_equations.md",
+        "Header 1": "Input Representation",
+        "section": "Input Representation",
+        "chunk_id": "bert_important_equations_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 2",
+        "section": "Figure 2",
+        "chunk_id": "bert_important_figures_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Input Representation",
+        "section": "Input Representation",
+        "chunk_id": "bert_key_concepts_0002"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Input and Output Representation",
+        "Header 2": "Combined Input Representation",
+        "section": "Input and Output Representation > Combined Input Representation",
+        "chunk_id": "bert_paper_overview_0037"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Input and Output Representation",
+        "Header 2": "Token Embeddings",
+        "section": "Input and Output Representation > Token Embeddings",
+        "chunk_id": "bert_paper_overview_0036"
+      }
+    ],
+    "answerable": true,
+    "category": "equation",
+    "difficulty": "easy"
+  },
+  {
+    "id": "bert-figures-001",
+    "question": "What is the main distinction between the BERT and GPT attention patterns shown in the knowledge-base figure material?",
+    "reference_answer": "BERT uses bidirectional self-attention, allowing a token to use context from both left and right. GPT uses constrained, left-to-right self-attention, so a token attends only to its left context.",
+    "expected_facts": [
+      "BERT attention is bidirectional.",
+      "GPT attention is constrained to left context."
+    ],
+    "generated_answer": "The main distinction between the attention patterns of BERT and GPT is how they process context:\n\n*   **BERT** uses bidirectional self-attention, which allows each token to use context from both the left and the right sides of the sequence [chunk_id: bert_key_concepts_0001]. This means BERT representations are jointly conditioned on both left and right context in all layers [chunk_id: bert_important_figures_0002].\n*   **GPT** uses constrained self-attention, where each token can only attend to tokens located to its left [chunk_id: bert_paper_overview_0026, bert_key_concepts_0001]. In the context of the comparison, GPT is described as using a left-to-right Transformer [chunk_id: bert_important_figures_0002].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "BERT and GPT",
+        "section": "Model Architecture > BERT and GPT",
+        "chunk_id": "bert_paper_overview_0026"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Main Idea",
+        "section": "Paper Overview > Main Idea",
+        "chunk_id": "bert_paper_overview_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 3",
+        "section": "Figure 3",
+        "chunk_id": "bert_important_figures_0002"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "BERT Architecture",
+        "section": "BERT Architecture",
+        "chunk_id": "bert_key_concepts_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Comparison with Existing Models",
+        "Header 2": "BERT vs OpenAI GPT",
+        "section": "Comparison with Existing Models > BERT vs OpenAI GPT",
+        "chunk_id": "bert_paper_overview_0107"
+      }
+    ],
+    "answerable": true,
+    "category": "comparison",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-limitations-001",
+    "question": "What mismatch does the [MASK] token create between BERT pre-training and fine-tuning, and how does BERT reduce it?",
+    "reference_answer": "The [MASK] token is used during pre-training but is absent during fine-tuning. BERT reduces this mismatch by selecting 15% of tokens for prediction and, among those, replacing 80% with [MASK], 10% with a random token, and leaving 10% unchanged.",
+    "expected_facts": [
+      "[MASK] occurs during pre-training but not fine-tuning.",
+      "Of selected tokens, 80% are masked, 10% replaced randomly, and 10% left unchanged."
+    ],
+    "generated_answer": "The `[MASK]` token creates a mismatch because it is used during the pre-training stage but is completely absent during downstream fine-tuning [bert_paper_overview_0044, bert_limitations_0000].\n\nTo reduce this mismatch, BERT uses a \"mixed masking\" strategy [bert_paper_overview_0044, bert_paper_overview_0134]. Instead of replacing every selected token with a `[MASK]` token, the model follows this approach:\n\n*   **80%** of the time, the token is replaced with `[MASK]` [bert_limitations_0000, bert_paper_overview_0134].\n*   **10%** of the time, the token is replaced with a random token [bert_limitations_0000, bert_paper_overview_0134].\n*   **10%** of the time, the token is left unchanged [bert_limitations_0000, bert_paper_overview_0134].\n\nBy incorporating these random and unchanged tokens, the model reduces the discrepancy between the pre-training and fine-tuning environments [bert_paper_overview_0137, bert_paper_overview_0134].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Masked Language Modeling",
+        "Header 2": "Reason for Mixed Masking",
+        "section": "Masked Language Modeling > Reason for Mixed Masking",
+        "chunk_id": "bert_paper_overview_0044"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations and Trade-offs",
+        "Header 2": "Pre-training/Fine-tuning Mismatch",
+        "section": "Limitations and Trade-offs > Pre-training/Fine-tuning Mismatch",
+        "chunk_id": "bert_paper_overview_0137"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "limitations.md",
+        "Header 1": "Limitations",
+        "Header 2": "Pre-training and Fine-tuning Mismatch",
+        "section": "Limitations > Pre-training and Fine-tuning Mismatch",
+        "chunk_id": "bert_limitations_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Masking Strategy Ablation",
+        "section": "Masking Strategy Ablation",
+        "chunk_id": "bert_paper_overview_0134"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Final Summary",
+        "section": "Final Summary",
+        "chunk_id": "bert_paper_overview_0169"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-statistics-001",
+    "question": "Compare BERTBASE and BERTLARGE by layer count, hidden size, attention heads, and parameter count.",
+    "reference_answer": "BERTBASE has 12 layers, hidden size 768, 12 attention heads, and 110 million parameters. BERTLARGE has 24 layers, hidden size 1024, 16 attention heads, and 340 million parameters.",
+    "expected_facts": [
+      "BERTBASE: 12 layers, hidden size 768, 12 heads, 110M parameters.",
+      "BERTLARGE: 24 layers, hidden size 1024, 16 heads, 340M parameters."
+    ],
+    "generated_answer": "To compare BERTBASE and BERTLARGE, we can look at their specific architectural configurations:\n\n*   **Transformer Layers:** BERTBASE uses 12 layers [bert_paper_statistics_0001, bert_key_concepts_0001], while BERTLARGE uses 24 layers [bert_paper_statistics_0001, bert_terminology_0016].\n*   **Hidden Size:** BERTBASE has a hidden size of 768 [bert_paper_statistics_0001, bert_key_concepts_0001], whereas BERTLARGE has a hidden size of 1024 [bert_paper_statistics_0001, bert_terminology_0016].\n*   **Attention Heads:** BERTBASE is built with 12 attention heads [bert_paper_statistics_0001, bert_key_concepts_0001], while BERTLARGE uses 16 attention heads [bert_paper_statistics_0001, bert_terminology_0016].\n*   **Parameter Count:** BERTBASE contains 110 million parameters [bert_paper_statistics_0001, bert_paper_overview_0123], and BERTLARGE contains 340 million parameters [bert_paper_statistics_0001, bert_paper_overview_0024].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Statistics",
+        "section": "Model Statistics",
+        "chunk_id": "bert_paper_statistics_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "BERT Architecture",
+        "section": "BERT Architecture",
+        "chunk_id": "bert_key_concepts_0001"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Effect of Model Size",
+        "section": "Effect of Model Size",
+        "chunk_id": "bert_paper_overview_0123"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "terminology.md",
+        "Header 1": "BERTLARGE",
+        "section": "BERTLARGE",
+        "chunk_id": "bert_terminology_0016"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Architecture",
+        "Header 2": "BERTLARGE",
+        "section": "Model Architecture > BERTLARGE",
+        "chunk_id": "bert_paper_overview_0024"
+      }
+    ],
+    "answerable": true,
+    "category": "comparison",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-applications-001",
+    "question": "How does BERT produce an answer for extractive question answering, and how does that differ from its classification use?",
+    "reference_answer": "For extractive question answering, BERT predicts the start and end positions of an answer span using token representations. For classification, the final [CLS] representation is used as an aggregate sequence representation for a task-specific output layer.",
+    "expected_facts": [
+      "Question answering predicts answer-span start and end positions.",
+      "Classification uses the final [CLS] representation."
+    ],
+    "generated_answer": "To produce an answer for extractive question answering, BERT processes the question and the passage as a single input sequence, where the question is assigned the \"A\" segment embedding and the passage is assigned the \"B\" segment embedding [bert_applications_0000, bert_paper_overview_0081]. BERT then predicts the start and end positions of the answer span within that passage [bert_applications_0000]. For cases where there is no answer, BERT uses the `[CLS]` token to calculate a \"no-answer\" score [bert_important_equations_0002].\n\nThe process differs from classification in the following ways:\n\n*   **Output Mechanism:** In classification tasks, the representation of the `[CLS]` token is passed to an output layer [bert_key_concepts_0006]. In contrast, for token-level tasks like question answering, the individual token representations are passed to task-specific output layers [bert_key_concepts_0006].\n*   **Input Structure:** For single-text classification, the input consists of the text in \"Sentence A\" while \"Sentence B\" is left empty [bert_paper_overview_0081]. For question answering, both the question and the passage are required to form the input sequence [bert_applications_0000, bert_paper_overview_0081].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Fine-Tuning",
+        "section": "Fine-Tuning",
+        "chunk_id": "bert_key_concepts_0006"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Downstream Task Representation",
+        "section": "Downstream Task Representation",
+        "chunk_id": "bert_paper_overview_0081"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "applications.md",
+        "Header 1": "Downstream Applications",
+        "Header 2": "Question Answering",
+        "section": "Downstream Applications > Question Answering",
+        "chunk_id": "bert_applications_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "bert_paper_overview_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "important_equations.md",
+        "Header 1": "SQuAD 2.0",
+        "section": "SQuAD 2.0",
+        "chunk_id": "bert_important_equations_0002"
+      }
+    ],
+    "answerable": true,
+    "category": "application",
+    "difficulty": "medium"
+  },
+  {
+    "id": "bert-terminology-001",
+    "question": "What are [CLS] and [SEP] used for in BERT inputs?",
+    "reference_answer": "[CLS] is placed at the start of the input and its final hidden representation is used as an aggregate sequence representation for classification. [SEP] separates two input segments, such as a question and passage.",
+    "expected_facts": [
+      "[CLS] begins the sequence and supports classification through its final representation.",
+      "[SEP] separates input segments."
+    ],
+    "generated_answer": "In BERT, the `[CLS]` and `[SEP]` tokens serve specific roles in organizing and processing input sequences:\n\n*   **`[CLS]` Token:** This token is placed at the very beginning of every input sequence [bert_key_concepts_0002, bert_paper_overview_0027]. Its final hidden representation acts as an aggregate representation of the entire sequence, which is used for classification tasks [bert_key_concepts_0002, bert_applications_0005, bert_paper_overview_0027].\n*   **`[SEP]` Token:** This token is used as a separator [bert_important_figures_0000]. When a pair of sentences is provided as input, the `[SEP]` token is used to distinguish between sentence A and sentence B [bert_key_concepts_0002].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Input Representation",
+        "section": "Input Representation",
+        "chunk_id": "bert_key_concepts_0002"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 1",
+        "section": "Figure 1",
+        "chunk_id": "bert_important_figures_0000"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "applications.md",
+        "Header 1": "Downstream Applications",
+        "Header 2": "Text Classification",
+        "section": "Downstream Applications > Text Classification",
+        "chunk_id": "bert_applications_0005"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Input and Output Representation",
+        "Header 2": "Single Sentence",
+        "section": "Input and Output Representation > Single Sentence",
+        "chunk_id": "bert_paper_overview_0027"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Comparison with Existing Models",
+        "Header 2": "Special Token Difference",
+        "section": "Comparison with Existing Models > Special Token Difference",
+        "chunk_id": "bert_paper_overview_0111"
+      }
+    ],
+    "answerable": true,
+    "category": "terminology",
+    "difficulty": "easy"
+  },
+  {
+    "id": "bert-statistics-002",
+    "question": "Which two corpora were used for BERT pre-training, and approximately how many words did each contribute?",
+    "reference_answer": "BERT was pre-trained on BooksCorpus (approximately 800 million words) and English Wikipedia (approximately 2,500 million words).",
+    "expected_facts": [
+      "BooksCorpus contributed approximately 800M words.",
+      "English Wikipedia contributed approximately 2,500M words."
+    ],
+    "generated_answer": "BERT was pre-trained using two main corpora:\n\n*   **BooksCorpus:** This contributed approximately 800 million words [bert_paper_statistics_0003, bert_paper_overview_0057].\n*   **English Wikipedia:** This contributed approximately 2,500 million words [bert_paper_statistics_0003, bert_paper_overview_0057].\n\nTogether, these sources make up a total pre-training corpus of approximately 3.3 billion words [bert_paper_statistics_0003, bert_paper_overview_0057].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "key_concepts.md",
+        "Header 1": "Pre-training",
+        "section": "Pre-training",
+        "chunk_id": "bert_key_concepts_0005"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Comparison with Existing Models",
+        "Header 2": "Training Corpus Difference",
+        "section": "Comparison with Existing Models > Training Corpus Difference",
+        "chunk_id": "bert_paper_overview_0110"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Pre-training Data",
+        "section": "Pre-training Data",
+        "chunk_id": "bert_paper_statistics_0003"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Pre-training Configuration",
+        "Header 2": "Training Steps",
+        "section": "Pre-training Configuration > Training Steps",
+        "chunk_id": "bert_paper_overview_0060"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "Pre-training Data",
+        "section": "Pre-training Data",
+        "chunk_id": "bert_paper_overview_0057"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "bert-statistics-003",
+    "question": "What GLUE score does the knowledge base report for BERTLARGE?",
+    "reference_answer": "The reported GLUE score for BERTLARGE is 80.5.",
+    "expected_facts": [
+      "BERTLARGE GLUE score: 80.5."
+    ],
+    "generated_answer": "The knowledge base reports that BERTLARGE achieves a GLUE score of 80.5 [bert_paper_overview_0093, bert_paper_statistics_0007].",
+    "sources": [
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "GLUE Results",
+        "section": "GLUE Results",
+        "chunk_id": "bert_paper_overview_0093"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Reported Results",
+        "section": "Reported Results",
+        "chunk_id": "bert_paper_statistics_0007"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "SWAG",
+        "section": "SWAG",
+        "chunk_id": "bert_paper_overview_0105"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "paper_overview.md",
+        "Header 1": "GLUE Benchmark",
+        "Header 2": "Overview",
+        "section": "GLUE Benchmark > Overview",
+        "chunk_id": "bert_paper_overview_0082"
+      },
+      {
+        "paper": "BERT",
+        "source_file": "terminology.md",
+        "Header 1": "GLUE",
+        "section": "GLUE",
+        "chunk_id": "bert_terminology_0017"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-overview-001",
+    "question": "What is chain-of-thought prompting, and how does its example format differ from standard few-shot prompting?",
+    "reference_answer": "Chain-of-thought prompting provides few-shot examples with intermediate natural-language reasoning steps as well as the final answer. Standard few-shot examples map input directly to output, while chain-of-thought examples follow input, reasoning, then output.",
+    "expected_facts": [
+      "A chain of thought is a sequence of intermediate natural-language reasoning steps.",
+      "Standard examples contain input and output.",
+      "Chain-of-thought examples contain input, reasoning, and output."
+    ],
+    "generated_answer": "Chain-of-thought prompting is a technique used to help large language models perform complex, multi-step reasoning tasks [chain_of_thought_paper_overview_0000, chain_of_thought_paper_overview_0072]. Instead of just providing the model with a direct answer, this method encourages the model to generate a series of intermediate reasoning steps before arriving at the final output [chain_of_thought_key_concepts_0000, chain_of_thought_paper_overview_0000].\n\nThe difference in format between standard few-shot prompting and chain-of-thought prompting is as follows:\n\n*   **Standard few-shot prompting:** The examples provided to the model follow a simple **input → output** structure [chain_of_thought_key_concepts_0000, chain_of_thought_paper_overview_0000].\n*   **Chain-of-thought prompting:** The examples are augmented to include intermediate natural-language reasoning steps, resulting in an **input → reasoning → output** (or **Question → Reasoning Steps → Answer**) structure [chain_of_thought_key_concepts_0000, chain_of_thought_paper_overview_0006].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "key_concepts.md",
+        "Header 1": "Chain-of-Thought Prompting",
+        "section": "Chain-of-Thought Prompting",
+        "chunk_id": "chain_of_thought_key_concepts_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "chain_of_thought_paper_overview_0072"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "terminology.md",
+        "Header 1": "Chain-of-Thought Prompting",
+        "section": "Chain-of-Thought Prompting",
+        "chunk_id": "chain_of_thought_terminology_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "chain_of_thought_paper_overview_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Chain-of-Thought Prompting",
+        "section": "Paper Overview > Chain-of-Thought Prompting",
+        "chunk_id": "chain_of_thought_paper_overview_0006"
+      }
+    ],
+    "answerable": true,
+    "category": "method",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-concepts-001",
+    "question": "What three broad types of reasoning does the paper evaluate with chain-of-thought prompting?",
+    "reference_answer": "The paper evaluates arithmetic reasoning, commonsense reasoning, and symbolic reasoning.",
+    "expected_facts": [
+      "Arithmetic reasoning is evaluated.",
+      "Commonsense reasoning is evaluated.",
+      "Symbolic reasoning is evaluated."
+    ],
+    "generated_answer": "The paper evaluates chain-of-thought prompting across three broad categories of reasoning:\n\n*   **Arithmetic reasoning** [chunk_id: chain_of_thought_paper_overview_0001, chunk_id: chain_of_thought_paper_overview_0017]\n*   **Commonsense reasoning** [chunk_id: chain_of_thought_paper_overview_0001, chunk_id: chain_of_thought_paper_overview_0017]\n*   **Symbolic reasoning** [chunk_id: chain_of_thought_paper_overview_0001, chunk_id: chain_of_thought_paper_overview_0017]",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Main Finding",
+        "section": "Paper Overview > Main Finding",
+        "chunk_id": "chain_of_thought_paper_overview_0001"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Properties of Chain-of-Thought Prompting",
+        "Header 2": "Broad Applicability",
+        "section": "Properties of Chain-of-Thought Prompting > Broad Applicability",
+        "chunk_id": "chain_of_thought_paper_overview_0017"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "chain_of_thought_paper_overview_0072"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "chain_of_thought_paper_overview_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 5: Prompting Ablation Study",
+        "section": "Figure 5: Prompting Ablation Study",
+        "chunk_id": "chain_of_thought_important_figures_0004"
+      }
+    ],
+    "answerable": true,
+    "category": "coverage_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-equations-001",
+    "question": "On GSM8K, what were PaLM 540B's reported scores with standard prompting and chain-of-thought prompting, and what was the absolute improvement?",
+    "reference_answer": "PaLM 540B scored 17.9% with standard prompting and 56.9% with chain-of-thought prompting, an absolute improvement of 39.0 percentage points.",
+    "expected_facts": [
+      "Standard prompting: 17.9%.",
+      "Chain-of-thought: 56.9%.",
+      "Absolute gain: 39.0 percentage points."
+    ],
+    "generated_answer": "For the PaLM 540B model on the GSM8K benchmark, the reported scores were as follows:\n\n*   **Standard prompting:** 17.9% [chunk_id: chain_of_thought_paper_statistics_0017, chain_of_thought_paper_statistics_0007]\n*   **Chain-of-thought prompting:** 56.9% [chunk_id: chain_of_thought_paper_statistics_0017, chain_of_thought_paper_statistics_0007]\n\nThe absolute improvement achieved by using chain-of-thought prompting was **39.0 percentage points** [chunk_id: chain_of_thought_paper_statistics_0007, chain_of_thought_important_equations_0011].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Main Quantitative Takeaway",
+        "section": "Main Quantitative Takeaway",
+        "chunk_id": "chain_of_thought_paper_statistics_0017"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "applications.md",
+        "Header 1": "Mathematical Word Problems",
+        "section": "Mathematical Word Problems",
+        "chunk_id": "chain_of_thought_applications_0001"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "PaLM 540B Results",
+        "section": "PaLM 540B Results",
+        "chunk_id": "chain_of_thought_paper_statistics_0007"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_equations.md",
+        "Header 1": "Performance Improvement",
+        "section": "Performance Improvement",
+        "chunk_id": "chain_of_thought_important_equations_0011"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_equations.md",
+        "Header 1": "Key Quantitative Example",
+        "section": "Key Quantitative Example",
+        "chunk_id": "chain_of_thought_important_equations_0017"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_comparison",
+    "difficulty": "medium"
+  },
+  {
+    "id": "cot-figures-001",
+    "question": "What is the essential difference illustrated between standard prompting and chain-of-thought prompting?",
+    "reference_answer": "Standard prompting presents an input and asks for an output directly. Chain-of-thought prompting includes intermediate reasoning between the input and final output.",
+    "expected_facts": [
+      "Standard format: input to output.",
+      "Chain-of-thought format: input to intermediate reasoning to output."
+    ],
+    "generated_answer": "The essential difference between standard prompting and chain-of-thought prompting is the inclusion of an intermediate reasoning sequence [chunk_id: chain_of_thought_important_equations_0009].\n\nIn standard prompting, the model is given a question and must produce the final answer directly [chunk_id: chain_of_thought_important_figures_0000]. In contrast, chain-of-thought prompting provides the model with demonstrations that include the question, the reasoning steps, and the final answer [chunk_id: chain_of_thought_important_figures_0000]. These intermediate steps allow the model to break down complex tasks, which can help it arrive at the correct answer even when standard prompting fails [chunk_id: chain_of_thought_important_figures_0000].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_figures.md",
+        "Header 1": "Important Figures",
+        "section": "Important Figures",
+        "chunk_id": "chain_of_thought_important_figures_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_equations.md",
+        "Header 1": "Chain-of-Thought Prompting",
+        "section": "Chain-of-Thought Prompting",
+        "chunk_id": "chain_of_thought_important_equations_0009"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Symbolic Reasoning",
+        "Header 2": "OOD Results",
+        "section": "Symbolic Reasoning > OOD Results",
+        "chunk_id": "chain_of_thought_paper_overview_0048"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "chain_of_thought_paper_overview_0072"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Robustness",
+        "section": "Robustness",
+        "chunk_id": "chain_of_thought_paper_overview_0057"
+      }
+    ],
+    "answerable": true,
+    "category": "figure_interpretation",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-limitations-001",
+    "question": "Why should a generated chain of thought not automatically be treated as a correct proof or a faithful account of a model's internal computation?",
+    "reference_answer": "A generated chain can contain incorrect reasoning even when it sounds plausible, and a correct final answer can coexist with flawed reasoning. The paper also does not establish that the visible reasoning is identical to the model's internal computation; explanations must be evaluated rather than assumed correct.",
+    "expected_facts": [
+      "Generated reasoning can be incorrect or misleading.",
+      "Correct final answers can accompany flawed reasoning.",
+      "Visible reasoning is not established as a faithful description of internal computation."
+    ],
+    "generated_answer": "A generated chain of thought should not be treated as a guaranteed proof or a faithful account of internal computation for the following reasons:\n\n**It is not a guaranteed proof of correctness:**\n*   **Errors can occur:** Chain-of-thought does not guarantee correct reasoning [chain_of_thought_applications_0015]. The model may produce a reasoning process that looks plausible but is actually incorrect [chain_of_thought_limitations_0003].\n*   **Varied outcomes:** Research shows that models can produce reasoning with minor or major semantic errors, and in some cases, the final answer may be correct even if the reasoning itself is wrong [chain_of_thought_key_concepts_0026]. Because of this, any chain-of-thought output should be evaluated when correctness is important [chain_of_thought_limitations_0003].\n\n**It is not a faithful account of internal computation:**\n*   **Visible vs. Internal:** While a chain of thought provides a visible sequence of steps, this does not mean the neural network's actual internal computation is identical to those generated steps [chain_of_thought_limitations_0012].\n*   **Interpretability limits:** Even though these chains offer a window into model behavior, they do not necessarily reveal the true internal processes performed by the network [chain_of_thought_paper_overview_0069]. Therefore, these explanations should not be viewed as a faithful description of how the model is actually computing the result [chain_of_thought_limitations_0012].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "applications.md",
+        "Header 1": "Important Limitation",
+        "section": "Important Limitation",
+        "chunk_id": "chain_of_thought_applications_0015"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "limitations.md",
+        "Header 1": "Reasoning Does Not Necessarily Reflect Internal Computation",
+        "section": "Reasoning Does Not Necessarily Reflect Internal Computation",
+        "chunk_id": "chain_of_thought_limitations_0012"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "limitations.md",
+        "Header 1": "Incorrect Reasoning Paths",
+        "section": "Incorrect Reasoning Paths",
+        "chunk_id": "chain_of_thought_limitations_0003"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Interpretability Limitation",
+        "section": "Limitations > Interpretability Limitation",
+        "chunk_id": "chain_of_thought_paper_overview_0069"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "key_concepts.md",
+        "Header 1": "Reasoning Correctness",
+        "section": "Reasoning Correctness",
+        "chunk_id": "chain_of_thought_key_concepts_0026"
+      }
+    ],
+    "answerable": true,
+    "category": "reliability",
+    "difficulty": "hard"
+  },
+  {
+    "id": "cot-statistics-001",
+    "question": "How many manually created few-shot chain-of-thought exemplars did the authors use for most arithmetic benchmarks?",
+    "reference_answer": "The authors manually created eight few-shot chain-of-thought exemplars for most arithmetic benchmarks; AQuA used four.",
+    "expected_facts": [
+      "Most arithmetic benchmarks used eight manually created exemplars.",
+      "AQuA used four exemplars."
+    ],
+    "generated_answer": "For most arithmetic benchmarks, the authors manually created eight few-shot chain-of-thought exemplars [chunk_id: chain_of_thought_paper_statistics_0006, chunk_id: chain_of_thought_paper_overview_0023].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Arithmetic Prompting",
+        "section": "Arithmetic Prompting",
+        "chunk_id": "chain_of_thought_paper_statistics_0006"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Arithmetic Reasoning",
+        "Header 2": "Eight Exemplars",
+        "section": "Arithmetic Reasoning > Eight Exemplars",
+        "chunk_id": "chain_of_thought_paper_overview_0023"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Arithmetic Reasoning",
+        "Header 2": "AQuA",
+        "section": "Arithmetic Reasoning > AQuA",
+        "chunk_id": "chain_of_thought_paper_overview_0024"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Arithmetic Reasoning",
+        "Header 2": "Benchmarks",
+        "section": "Arithmetic Reasoning > Benchmarks",
+        "chunk_id": "chain_of_thought_paper_overview_0020"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Robustness",
+        "section": "Robustness",
+        "chunk_id": "chain_of_thought_paper_overview_0057"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-applications-001",
+    "question": "How does the SayCan example apply chain-of-thought prompting beyond mathematical question answering?",
+    "reference_answer": "SayCan applies intermediate reasoning to robot instruction planning by decomposing a natural-language instruction into a sequence of actions, such as identifying and locating an object, picking it up, locating the user, and placing it.",
+    "expected_facts": [
+      "SayCan maps natural-language instructions to robot actions.",
+      "The task is decomposed into intermediate steps or actions."
+    ],
+    "generated_answer": "The SayCan example demonstrates that chain-of-thought prompting can be used for robot instruction planning, which involves mapping natural-language instructions to specific sequences of robot actions [chunk_id: chain_of_thought_applications_0006, chunk_id: chain_of_thought_paper_overview_0061].\n\nInstead of solving a math problem, the model breaks down a natural-language instruction into a logical sequence of steps for a robot to follow:\n1. Identify the object.\n2. Locate the object.\n3. Pick the object.\n4. Locate the user.\n5. Place the object [chunk_id: chain_of_thought_applications_0006].\n\nThis application shows that chain-of-thought prompting is not limited to mathematical problems and can be effectively applied to physical tasks [chunk_id: chain_of_thought_applications_0006].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "applications.md",
+        "Header 1": "Robot Instruction Planning",
+        "section": "Robot Instruction Planning",
+        "chunk_id": "chain_of_thought_applications_0006"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Applications Demonstrated",
+        "section": "Applications Demonstrated",
+        "chunk_id": "chain_of_thought_paper_overview_0061"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Main Result",
+        "section": "Paper Overview > Main Result",
+        "chunk_id": "chain_of_thought_paper_overview_0002"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Chain-of-Thought Prompting",
+        "section": "Paper Overview > Chain-of-Thought Prompting",
+        "chunk_id": "chain_of_thought_paper_overview_0006"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_figures.md",
+        "Header 1": "Important Figures",
+        "section": "Important Figures",
+        "chunk_id": "chain_of_thought_important_figures_0000"
+      }
+    ],
+    "answerable": true,
+    "category": "application",
+    "difficulty": "medium"
+  },
+  {
+    "id": "cot-terminology-001",
+    "question": "What is few-shot prompting, and how does in-context learning use the examples without changing the model?",
+    "reference_answer": "Few-shot prompting provides a small number of demonstrations before a test input. In-context learning uses the examples in the input context to learn the task behavior without updating model parameters.",
+    "expected_facts": [
+      "Few-shot prompting provides a small number of demonstrations.",
+      "In-context learning uses examples supplied in the input context.",
+      "Model parameters are not updated."
+    ],
+    "generated_answer": "Few-shot prompting is a technique where you provide a small number of examples within the model's input context to demonstrate the behavior you want the model to perform [chain_of_thought_key_concepts_0002]. These examples typically consist of inputs and outputs, which help the model understand the task without needing to be fine-tuned [chain_of_thought_paper_overview_0005, chain_of_thought_key_concepts_0001].\n\nIn-context learning allows the model to use these examples without changing its internal parameters in the following ways:\n\n*   **Direct Insertion:** The examples are sampled from a training set and inserted directly into the model's input context window [gpt3_paper_overview_0031].\n*   **Prompting:** Because the model is prompted rather than fine-tuned, the model parameters remain unchanged during the process [chain_of_thought_paper_overview_0013, gpt3_paper_overview_0031].\n*   **In-Context Guidance:** The model uses the provided examples as a guide to infer the task and predict the completion for a new input [chain_of_thought_paper_overview_0005, gpt3_paper_overview_0031]. \n\nBy using this method, the same language model can perform many different tasks simply by adjusting the examples provided in the prompt [chain_of_thought_key_concepts_0002].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "key_concepts.md",
+        "Header 1": "Few-Shot Prompting",
+        "section": "Few-Shot Prompting",
+        "chunk_id": "chain_of_thought_key_concepts_0002"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Standard Few-Shot Prompting",
+        "section": "Paper Overview > Standard Few-Shot Prompting",
+        "chunk_id": "chain_of_thought_paper_overview_0005"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Proposed Approach",
+        "section": "Proposed Approach",
+        "chunk_id": "chain_of_thought_paper_overview_0013"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Framework",
+        "section": "Evaluation Framework",
+        "chunk_id": "gpt3_paper_overview_0031"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "key_concepts.md",
+        "Header 1": "Standard Prompting",
+        "section": "Standard Prompting",
+        "chunk_id": "chain_of_thought_key_concepts_0001"
+      }
+    ],
+    "answerable": true,
+    "category": "terminology",
+    "difficulty": "easy"
+  },
+  {
+    "id": "cot-equations-002",
+    "question": "What did the variable-computation-only ablation test, and how did it perform?",
+    "reference_answer": "It tested whether giving the model additional output tokens, without meaningful intermediate reasoning, would explain chain-of-thought gains. It performed approximately like standard prompting, suggesting that reasoning content matters rather than output length alone.",
+    "expected_facts": [
+      "The ablation supplied extra output tokens without meaningful reasoning.",
+      "It performed approximately like standard prompting.",
+      "The result supports the importance of intermediate reasoning content."
+    ],
+    "generated_answer": "The variable-computation-only ablation tested the hypothesis that chain-of-thought prompting works simply because it provides the model with additional output tokens, thereby allowing for more computation [chunk_id: chain_of_thought_limitations_0013, chunk_id: chain_of_thought_paper_overview_0053]. To test this, researchers prompted the model to produce additional tokens—such as a sequence of dots—that did not contain any meaningful reasoning content [chunk_id: chain_of_thought_important_equations_0014, chunk_id: chain_of_thought_paper_overview_0053].\n\nIn terms of performance, this method performed approximately the same as standard prompting [chunk_id: chain_of_thought_important_equations_0014, chunk_id: chain_of_thought_limitations_0013]. This result suggests that simply producing more tokens is not enough to achieve the benefits of chain-of-thought; instead, the semantic content of the intermediate reasoning is what matters [chunk_id: chain_of_thought_paper_overview_0054, chunk_id: chain_of_thought_important_equations_0014].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Ablation Studies",
+        "Header 2": "Result",
+        "section": "Ablation Studies > Result",
+        "chunk_id": "chain_of_thought_paper_overview_0054"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "important_equations.md",
+        "Header 1": "Variable Compute",
+        "section": "Variable Compute",
+        "chunk_id": "chain_of_thought_important_equations_0014"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Ablation Variants",
+        "section": "Ablation Variants",
+        "chunk_id": "chain_of_thought_paper_statistics_0013"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Ablation Studies",
+        "Header 2": "Variable Compute Only",
+        "section": "Ablation Studies > Variable Compute Only",
+        "chunk_id": "chain_of_thought_paper_overview_0053"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "limitations.md",
+        "Header 1": "Variable Computation Is Not Enough",
+        "section": "Variable Computation Is Not Enough",
+        "chunk_id": "chain_of_thought_limitations_0013"
+      }
+    ],
+    "answerable": true,
+    "category": "experimental_ablation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "cot-limitations-002",
+    "question": "At what approximate model scale does the limitations document say strong chain-of-thought benefits primarily appear?",
+    "reference_answer": "The document says strong benefits primarily appear with sufficiently large models and notes that models below approximately the 100-billion-parameter scale often produce fluent but illogical chains of thought.",
+    "expected_facts": [
+      "Strong benefits primarily appear for sufficiently large models.",
+      "Models below approximately 100B often produce fluent but illogical reasoning."
+    ],
+    "generated_answer": "Strong chain-of-thought benefits primarily appear in models that reach a scale of approximately 100 billion (100B) parameters [chain_of_thought_paper_overview_0058, chain_of_thought_key_concepts_0005]. Below this scale, models often struggle to produce logically useful reasoning, even if their output appears fluent [chain_of_thought_limitations_0000, chain_of_thought_paper_overview_0058].",
+    "sources": [
+      {
+        "paper": "chain_of_thought",
+        "source_file": "limitations.md",
+        "Header 1": "Limitations",
+        "section": "Limitations",
+        "chunk_id": "chain_of_thought_limitations_0000"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Model Scale Requirement",
+        "section": "Limitations > Model Scale Requirement",
+        "chunk_id": "chain_of_thought_paper_overview_0064"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Main Experimental Conclusions",
+        "section": "Main Experimental Conclusions",
+        "chunk_id": "chain_of_thought_paper_statistics_0016"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model-Scale Dependence",
+        "section": "Model-Scale Dependence",
+        "chunk_id": "chain_of_thought_paper_overview_0058"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "key_concepts.md",
+        "Header 1": "Emergent Ability",
+        "section": "Emergent Ability",
+        "chunk_id": "chain_of_thought_key_concepts_0005"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-overview-001",
+    "question": "What central capability does the GPT-3 paper investigate, and what happens to model parameters during its in-context evaluation?",
+    "reference_answer": "The paper investigates whether a large autoregressive language model can perform diverse tasks from instructions and demonstrations in the prompt. During in-context evaluation, the parameters are not updated; the model conditions its predictions on the supplied context.",
+    "expected_facts": [
+      "Tasks are specified through instructions and optionally demonstrations in context.",
+      "No task-specific gradient updates are performed during in-context evaluation."
+    ],
+    "generated_answer": "The central capability investigated by the GPT-3 paper is \"in-context learning,\" which explores how increasing the scale of a language model allows it to perform various tasks using only natural-language instructions and a small number of demonstrations provided within the input context [gpt3_paper_overview_0001].\n\nDuring this in-context evaluation, the model's parameters are **not updated** [gpt3_paper_overview_0001, gpt3_key_concepts_0000]. Unlike traditional methods that require fine-tuning, GPT-3 performs tasks through an ordinary forward-pass of language modeling without any task-specific gradient updates [gpt3_paper_overview_0001, gpt3_key_concepts_0000].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "gpt3_paper_overview_0001"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "gpt3_paper_overview_0002"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "gpt3_paper_overview_0003"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "GPT-3",
+        "section": "GPT-3",
+        "chunk_id": "gpt3_key_concepts_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "terminology.md",
+        "Header 1": "GPT-3",
+        "section": "GPT-3",
+        "chunk_id": "gpt3_terminology_0000"
+      }
+    ],
+    "answerable": true,
+    "category": "method",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-concepts-001",
+    "question": "What distinguishes zero-shot, one-shot, and few-shot evaluation in GPT-3?",
+    "reference_answer": "Zero-shot supplies a task description with no examples; one-shot supplies one demonstration; few-shot supplies multiple demonstrations in the context. These settings do not require gradient updates.",
+    "expected_facts": [
+      "Zero-shot: task description only, no examples.",
+      "One-shot: one task demonstration.",
+      "Few-shot: multiple task demonstrations in context.",
+      "No gradient updates are used for these in-context settings."
+    ],
+    "generated_answer": "In GPT-3, the primary difference between zero-shot, one-shot, and few-shot evaluation is the amount of information provided to the model within its context window before it performs a task [chunk_id: gpt3_paper_overview_0031]. Importantly, in all three settings, the model's internal parameters remain unchanged [chunk_id: gpt3_important_figures_0003, gpt3_paper_overview_0031].\n\nHere is how they differ:\n\n*   **Zero-shot:** The model is provided only with a natural-language description of the task [chunk_id: gpt3_important_figures_0003].\n*   **One-shot:** The model is provided with exactly one example of the task within its context [chunk_id: gpt3_important_figures_0003].\n*   **Few-shot:** The model is provided with several demonstrations of the task (typically between 10 and 100 examples) within its context [chunk_id: gpt3_paper_overview_0018, gpt3_paper_statistics_0012]. These examples act as conditioning information to help the model perform the task [chunk_id: gpt3_paper_overview_0018].\n\nBecause GPT-3 has a 2048-token context window, the number of examples that can be used in few-shot evaluation is limited by how much space those examples take up [chunk_id: gpt3_paper_overview_0018, gpt3_paper_overview_0031].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Evaluation",
+        "section": "Evaluation",
+        "chunk_id": "gpt3_paper_statistics_0012"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 2.1 — Zero-Shot, One-Shot, Few-Shot and Fine-Tuning",
+        "section": "Figure 2.1 — Zero-Shot, One-Shot, Few-Shot and Fine-Tuning",
+        "chunk_id": "gpt3_important_figures_0003"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Few-Shot Learning",
+        "section": "Few-Shot Learning",
+        "chunk_id": "gpt3_paper_overview_0018"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Key Experimental Findings",
+        "Header 2": "Overall Scaling",
+        "section": "Key Experimental Findings > Overall Scaling",
+        "chunk_id": "gpt3_paper_overview_0042"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Framework",
+        "section": "Evaluation Framework",
+        "chunk_id": "gpt3_paper_overview_0031"
+      }
+    ],
+    "answerable": true,
+    "category": "comparison",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gpt3-equations-001",
+    "question": "How does GPT-3 factor the probability of a token sequence under its autoregressive language-model objective?",
+    "reference_answer": "For tokens x_1 through x_n, the sequence probability is the product of conditional next-token probabilities: P(x_1, ..., x_n) = product over i of P(x_i | x_1, ..., x_{i-1}). Each token is conditioned on the preceding tokens.",
+    "expected_facts": [
+      "Sequence probability factors into a product of conditional token probabilities.",
+      "Each token is conditioned on preceding tokens."
+    ],
+    "generated_answer": "GPT-3 models the probability of a sequence of tokens ($x_1, x_2, ..., x_n$) by decomposing it into a product of conditional probabilities [gpt3_important_equations_0000]. \n\nMathematically, this is expressed as:\n**P(x_1, x_2, ..., x_n) = ∏ P(x_i | x_1, ..., x_{i-1})** [gpt3_important_equations_0000]\n\nIn simpler terms, this means the model predicts each individual token based on the context of all the tokens that came before it [gpt3_important_equations_0000, gpt3_key_concepts_0006].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "important_equations.md",
+        "Header 1": "Autoregressive Language Modeling",
+        "section": "Autoregressive Language Modeling",
+        "chunk_id": "gpt3_important_equations_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "GPT-3 Architecture",
+        "section": "GPT-3 Architecture",
+        "chunk_id": "gpt3_paper_overview_0020"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "Autoregressive Language Modeling",
+        "section": "Autoregressive Language Modeling",
+        "chunk_id": "gpt3_key_concepts_0006"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "gpt3_paper_overview_0071"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "gpt3_paper_overview_0001"
+      }
+    ],
+    "answerable": true,
+    "category": "equation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-figures-001",
+    "question": "How many model sizes were trained in the GPT-3 family, and what were the smallest and largest parameter counts?",
+    "reference_answer": "The paper trained eight model sizes, ranging from 125 million parameters to 175 billion parameters.",
+    "expected_facts": [
+      "The model family contains eight sizes.",
+      "Smallest model: 125M parameters.",
+      "Largest model: 175B parameters."
+    ],
+    "generated_answer": "In the GPT-3 family, the authors trained eight different model sizes [chunk_id: gpt3_paper_overview_0021]. \n\nThe smallest model size is 125 million parameters (GPT-3 Small), and the largest model size is 175 billion parameters (GPT-3 175B) [chunk_id: gpt3_paper_overview_0021].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Sizes",
+        "Header 2": "Eight Model Configurations",
+        "section": "Model Sizes > Eight Model Configurations",
+        "chunk_id": "gpt3_paper_overview_0021"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Training Process",
+        "section": "Training Process",
+        "chunk_id": "gpt3_paper_overview_0029"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Sizes",
+        "Header 2": "GPT-3 175B",
+        "section": "Model Sizes > GPT-3 175B",
+        "chunk_id": "gpt3_paper_overview_0022"
+      },
+      {
+        "paper": "chain_of_thought",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Families",
+        "section": "Model Families",
+        "chunk_id": "chain_of_thought_paper_statistics_0002"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "GPT-3",
+        "section": "GPT-3",
+        "chunk_id": "gpt3_key_concepts_0000"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gpt3-limitations-001",
+    "question": "Name two reliability or generation limitations the knowledge base reports for GPT-3 and briefly describe them.",
+    "reference_answer": "Examples include long-range coherence problems, document-level repetition, contradictions, poor calibration on novel inputs, weaknesses in some reasoning or NLI tasks, and bias inherited from training data. Any two with a correct description satisfy the question.",
+    "expected_facts": [
+      "At least two listed limitations are identified accurately.",
+      "The answer does not claim that scaling eliminates these weaknesses."
+    ],
+    "generated_answer": "Based on the provided text, here are two limitations of GPT-3:\n\n1. **Text Coherence:** GPT-3 can struggle to maintain a logical flow over long passages of text. This can result in the model repeating ideas, contradicting itself, or including unrelated statements [gpt3_paper_overview_0053, gpt3_limitations_0000].\n2. **Bias:** Because GPT-3 learns from its training data, it inherits the biases found within that data. This can lead the model to produce content that is stereotyped or prejudiced [gpt3_paper_overview_0058].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "limitations.md",
+        "Header 1": "Text Generation Limitations",
+        "section": "Text Generation Limitations",
+        "chunk_id": "gpt3_limitations_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Text Coherence",
+        "section": "Limitations > Text Coherence",
+        "chunk_id": "gpt3_paper_overview_0053"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Common Sense Physics",
+        "section": "Limitations > Common Sense Physics",
+        "chunk_id": "gpt3_paper_overview_0054"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Interpretability",
+        "section": "Limitations > Interpretability",
+        "chunk_id": "gpt3_paper_overview_0057"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Limitations",
+        "Header 2": "Bias",
+        "section": "Limitations > Bias",
+        "chunk_id": "gpt3_paper_overview_0058"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-statistics-001",
+    "question": "What are GPT-3's parameter count, Transformer layer count, model dimension, attention-head count, and context-window length?",
+    "reference_answer": "The largest GPT-3 has 175 billion parameters, 96 Transformer layers, model dimension 12,288, 96 attention heads, and a 2,048-token context window.",
+    "expected_facts": [
+      "175B parameters.",
+      "96 layers.",
+      "Model dimension 12,288.",
+      "96 attention heads.",
+      "Context window 2,048 tokens."
+    ],
+    "generated_answer": "For the GPT-3 175B model, the specifications are as follows:\n\n*   **Parameter count:** 175 billion trainable parameters [gpt3_paper_overview_0022, gpt3_paper_statistics_0000].\n*   **Transformer layer count:** 96 layers [gpt3_paper_overview_0022, gpt3_paper_statistics_0000].\n*   **Model dimension:** 12,288 [gpt3_paper_overview_0022, gpt3_paper_statistics_0000].\n*   **Attention-head count:** 96 heads [gpt3_paper_overview_0022, gpt3_paper_statistics_0000].\n*   **Context-window length:** 2048 tokens [gpt3_paper_statistics_0000].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Sizes",
+        "Header 2": "GPT-3 175B",
+        "section": "Model Sizes > GPT-3 175B",
+        "chunk_id": "gpt3_paper_overview_0022"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "GPT-3 Model",
+        "section": "GPT-3 Model",
+        "chunk_id": "gpt3_paper_statistics_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Family",
+        "Header 2": "GPT-3 Large",
+        "section": "Model Family > GPT-3 Large",
+        "chunk_id": "gpt3_paper_statistics_0003"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Family",
+        "Header 2": "GPT-3 Medium",
+        "section": "Model Family > GPT-3 Medium",
+        "chunk_id": "gpt3_paper_statistics_0002"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Family",
+        "Header 2": "GPT-3 175B",
+        "section": "Model Family > GPT-3 175B",
+        "chunk_id": "gpt3_paper_statistics_0008"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-applications-001",
+    "question": "What does closed-book question answering mean in the GPT-3 knowledge base?",
+    "reference_answer": "Closed-book question answering means answering questions without retrieving external documents; the model relies on information encoded in its parameters.",
+    "expected_facts": [
+      "No external documents are retrieved.",
+      "The model uses information encoded in its parameters."
+    ],
+    "generated_answer": "In the context of the GPT-3 knowledge base, **closed-book question answering** refers to a task where a model answers factual questions using only the information stored within its own parameters, rather than by retrieving external documents [gpt3_terminology_0016, gpt3_key_concepts_0010]. \n\nEssentially, the model must rely entirely on its internal knowledge to provide answers [gpt3_paper_overview_0034]. When evaluating GPT-3 on this task, researchers found that the model's performance improves as the model size increases [gpt3_paper_overview_0044] and that it shows substantial improvement when moving from zero-shot to few-shot settings [gpt3_paper_overview_0034, gpt3_applications_0000].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Tasks",
+        "Header 2": "Closed-Book Question Answering",
+        "section": "Evaluation Tasks > Closed-Book Question Answering",
+        "chunk_id": "gpt3_paper_overview_0034"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "applications.md",
+        "Header 1": "Question Answering",
+        "section": "Question Answering",
+        "chunk_id": "gpt3_applications_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Key Experimental Findings",
+        "Header 2": "Closed-Book Knowledge",
+        "section": "Key Experimental Findings > Closed-Book Knowledge",
+        "chunk_id": "gpt3_paper_overview_0044"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "Closed-Book Question Answering",
+        "section": "Closed-Book Question Answering",
+        "chunk_id": "gpt3_key_concepts_0010"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "terminology.md",
+        "Header 1": "Closed-Book Question Answering",
+        "section": "Closed-Book Question Answering",
+        "chunk_id": "gpt3_terminology_0016"
+      }
+    ],
+    "answerable": true,
+    "category": "terminology",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gpt3-terminology-001",
+    "question": "Why does GPT-3's context window constrain few-shot evaluation?",
+    "reference_answer": "The context window limits the total input context available, so it limits how many task demonstrations can fit in a few-shot prompt. GPT-3's context window is 2,048 tokens.",
+    "expected_facts": [
+      "The context window limits the number of demonstrations that can be included.",
+      "GPT-3 context window: 2,048 tokens."
+    ],
+    "generated_answer": "GPT-3's context window constrains few-shot evaluation because the model's ability to perform tasks depends on \"in-context learning,\" where demonstrations are provided directly within the model's input sequence [chunk_id: gpt3_paper_overview_0020]. \n\nBecause these demonstrations must fit inside the model's 2048-token context window, the number of examples that can be provided is physically limited by that space [chunk_id: gpt3_paper_overview_0018, gpt3_paper_overview_0020]. Typically, this allows for approximately 10 to 100 examples, depending on the specific task [chunk_id: gpt3_paper_statistics_0012, gpt3_paper_overview_0018].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Evaluation",
+        "section": "Evaluation",
+        "chunk_id": "gpt3_paper_statistics_0012"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Few-Shot Learning",
+        "section": "Few-Shot Learning",
+        "chunk_id": "gpt3_paper_overview_0018"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "GPT-3 Architecture",
+        "section": "GPT-3 Architecture",
+        "chunk_id": "gpt3_paper_overview_0020"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "gpt3_paper_overview_0003"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Comparison With Previous Models",
+        "section": "Comparison With Previous Models",
+        "chunk_id": "gpt3_paper_overview_0065"
+      }
+    ],
+    "answerable": true,
+    "category": "mechanism",
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpt3-statistics-002",
+    "question": "What are the reported zero-shot, one-shot, and few-shot TriviaQA results for GPT-3?",
+    "reference_answer": "The reported TriviaQA results are 64.3% zero-shot, 68.0% one-shot, and 71.2% few-shot.",
+    "expected_facts": [
+      "TriviaQA zero-shot: 64.3%.",
+      "TriviaQA one-shot: 68.0%.",
+      "TriviaQA few-shot: 71.2%."
+    ],
+    "generated_answer": "For the TriviaQA task, GPT-3 achieved the following results:\n\n*   **Zero-shot:** 64.3% [gpt3_paper_statistics_0014]\n*   **One-shot:** 68.0% [gpt3_paper_statistics_0014]\n*   **Few-shot:** 71.2% [gpt3_paper_statistics_0014]",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Selected Results",
+        "section": "Selected Results",
+        "chunk_id": "gpt3_paper_statistics_0014"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Key Experimental Findings",
+        "Header 2": "Overall Scaling",
+        "section": "Key Experimental Findings > Overall Scaling",
+        "chunk_id": "gpt3_paper_overview_0042"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Evaluation",
+        "section": "Evaluation",
+        "chunk_id": "gpt3_paper_statistics_0012"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "applications.md",
+        "Header 1": "Question Answering",
+        "section": "Question Answering",
+        "chunk_id": "gpt3_applications_0000"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Tasks",
+        "Header 2": "Closed-Book Question Answering",
+        "section": "Evaluation Tasks > Closed-Book Question Answering",
+        "chunk_id": "gpt3_paper_overview_0034"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_comparison",
+    "difficulty": "easy"
+  },
+  {
+    "id": "gpt3-limitations-002",
+    "question": "Why does benchmark contamination complicate interpreting GPT-3 evaluation results, and what limitation did the paper's filtering attempt have?",
+    "reference_answer": "If benchmark examples or related content occur in the training data, measured performance can overstate generalization. The authors attempted to remove overlap, but a bug meant that only partial removal was achieved, and retraining was not feasible because of the cost.",
+    "expected_facts": [
+      "Training/evaluation overlap can make benchmark performance difficult to interpret.",
+      "A bug resulted in only partial removal of potential overlap.",
+      "Retraining was not feasible due to cost."
+    ],
+    "generated_answer": "Benchmark contamination complicates the interpretation of GPT-3's evaluation results because it occurs when evaluation examples or similar content are included in the model's pretraining data [gpt3_key_concepts_0011]. This creates a risk where a model might perform well on a benchmark simply because it has already encountered that content during training, rather than because of its true generalization ability [gpt3_paper_overview_0048, gpt3_key_concepts_0011]. Consequently, this makes it difficult to interpret the benchmark results accurately [gpt3_limitations_0007].\n\nRegarding the filtering attempt, the authors tried to remove these overlaps from the training data, but a bug resulted in only a partial removal [gpt3_limitations_0007]. Because of the high cost involved, it was not feasible to retrain the model to fix this issue [gpt3_limitations_0007].",
+    "sources": [
+      {
+        "paper": "GPT3",
+        "source_file": "limitations.md",
+        "Header 1": "Data Contamination",
+        "section": "Data Contamination",
+        "chunk_id": "gpt3_limitations_0007"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Data Contamination",
+        "Header 2": "Motivation",
+        "section": "Data Contamination > Motivation",
+        "chunk_id": "gpt3_paper_overview_0048"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Evaluation Tasks",
+        "Header 2": "SuperGLUE",
+        "section": "Evaluation Tasks > SuperGLUE",
+        "chunk_id": "gpt3_paper_overview_0039"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "paper_overview.md",
+        "Header 1": "Data Contamination",
+        "Header 2": "Findings",
+        "section": "Data Contamination > Findings",
+        "chunk_id": "gpt3_paper_overview_0051"
+      },
+      {
+        "paper": "GPT3",
+        "source_file": "key_concepts.md",
+        "Header 1": "Benchmark Contamination",
+        "section": "Benchmark Contamination",
+        "chunk_id": "gpt3_key_concepts_0011"
+      }
+    ],
+    "answerable": true,
+    "category": "evaluation_reliability",
+    "difficulty": "hard"
+  },
+  {
+    "id": "scaling-overview-001",
+    "question": "What are scaling laws in the paper, and what broad empirical pattern do they describe?",
+    "reference_answer": "Scaling laws are empirical relationships between language-model performance and quantities such as model size, dataset size, compute, and training time. The paper finds that loss follows smooth power-law trends across broad ranges of scale.",
+    "expected_facts": [
+      "The relationships involve model size, data, compute, or training time.",
+      "Loss follows smooth empirical power-law trends over studied ranges."
+    ],
+    "generated_answer": "Scaling laws are empirical relationships that describe how the performance of a language model relates to factors such as the model's size, the size of the dataset used, the amount of training compute, and the training time [scaling_law_key_concepts_0000].\n\nThe broad empirical pattern they describe is that language-model loss follows smooth power-law trends across a wide range of scales [scaling_law_key_concepts_0000].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "key_concepts.md",
+        "Header 1": "Scaling Laws",
+        "section": "Scaling Laws",
+        "chunk_id": "scaling_law_key_concepts_0000"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "scaling_law_paper_overview_0053"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "applications.md",
+        "Header 1": "Research Extrapolation",
+        "section": "Research Extrapolation",
+        "chunk_id": "scaling_law_applications_0010"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Discussion",
+        "section": "Discussion",
+        "chunk_id": "scaling_law_paper_overview_0047"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "limitations.md",
+        "Header 1": "Lack of Theoretical Foundation",
+        "section": "Lack of Theoretical Foundation",
+        "chunk_id": "scaling_law_limitations_0000"
+      }
+    ],
+    "answerable": true,
+    "category": "core_finding",
+    "difficulty": "medium"
+  },
+  {
+    "id": "scaling-concepts-001",
+    "question": "In the paper's definitions, what do N, D, and C represent?",
+    "reference_answer": "N is the number of non-embedding model parameters, D is the number of training tokens, and C is the estimated non-embedding computation used during training.",
+    "expected_facts": [
+      "N is non-embedding parameter count.",
+      "D is dataset size in training tokens.",
+      "C is estimated training compute."
+    ],
+    "generated_answer": "In the paper, these variables represent the following:\n\n*   **N**: Represents the model size, which is defined as the number of non-embedding parameters in a model [chunk_id: scaling_law_terminology_0001].\n*   **D**: Represents the dataset size [chunk_id: scaling_law_important_equations_0010].\n*   **C**: Represents the estimated non-embedding training compute used during the training process [chunk_id: scaling_law_key_concepts_0003]. It is approximated by the formula $C \\approx 6NBS$, where $N$ is the model size, $B$ is the batch size, and $S$ is the number of training steps [chunk_id: scaling_law_paper_overview_0020, chunk_id: scaling_law_key_concepts_0003].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Important Variables",
+        "Header 2": "Compute",
+        "section": "Important Variables > Compute",
+        "chunk_id": "scaling_law_paper_overview_0020"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Overfitting",
+        "section": "Overfitting",
+        "chunk_id": "scaling_law_important_equations_0011"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "key_concepts.md",
+        "Header 1": "Compute",
+        "section": "Compute",
+        "chunk_id": "scaling_law_key_concepts_0003"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "terminology.md",
+        "Header 1": "Model Size",
+        "section": "Model Size",
+        "chunk_id": "scaling_law_terminology_0001"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Joint Model-Dataset Loss",
+        "section": "Joint Model-Dataset Loss",
+        "chunk_id": "scaling_law_important_equations_0010"
+      }
+    ],
+    "answerable": true,
+    "category": "terminology",
+    "difficulty": "easy"
+  },
+  {
+    "id": "scaling-equations-001",
+    "question": "State the paper's approximation for training compute and explain its variables.",
+    "reference_answer": "The approximation is C approximately equal to 6NBS, where N is the number of non-embedding parameters, B is batch size, and S is the number of training steps.",
+    "expected_facts": [
+      "C approximately equals 6NBS.",
+      "N is non-embedding parameter count.",
+      "B is batch size.",
+      "S is training steps."
+    ],
+    "generated_answer": "The paper approximates training compute ($C$) using the following equation:\n\n**$C \\approx 6NBS$** [chunk_id: scaling_law_key_concepts_0003, chunk_id: scaling_law_important_equations_0018]\n\n### Explanation of Variables:\n*   **$N$**: Represents the number of non-embedding parameters in the model [chunk_id: scaling_law_paper_overview_0020, chunk_id: scaling_law_important_equations_0018].\n*   **$B$**: Represents the batch size used during training [chunk_id: scaling_law_paper_overview_0020, chunk_id: scaling_law_important_equations_0018].\n*   **$S$**: Represents the number of training or optimization steps [chunk_id: scaling_law_paper_overview_0020, chunk_id: scaling_law_important_equations_0018].\n\nThis formula accounts for both the forward and backward passes of the training process, resulting in approximately 6 floating-point operations per parameter for every training token [chunk_id: scaling_law_paper_overview_0030]. It is important to note that this is an approximation that does not include all context-dependent computation, meaning it may become less accurate when the context length is very large [chunk_id: scaling_law_limitations_0008].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Important Variables",
+        "Header 2": "Compute",
+        "section": "Important Variables > Compute",
+        "chunk_id": "scaling_law_paper_overview_0020"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "limitations.md",
+        "Header 1": "Compute Approximation",
+        "section": "Compute Approximation",
+        "chunk_id": "scaling_law_limitations_0008"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "key_concepts.md",
+        "Header 1": "Compute",
+        "section": "Compute",
+        "chunk_id": "scaling_law_key_concepts_0003"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Training Compute",
+        "section": "Training Compute",
+        "chunk_id": "scaling_law_important_equations_0018"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Compute Estimation",
+        "section": "Compute Estimation",
+        "chunk_id": "scaling_law_paper_overview_0030"
+      }
+    ],
+    "answerable": true,
+    "category": "equation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "scaling-figures-001",
+    "question": "What does the compute-allocation figure set suggest should grow most rapidly as compute increases, compared with data and serial training steps?",
+    "reference_answer": "Compute-efficient training primarily increases model size. Optimal dataset size grows more moderately, and the number of serial training steps grows very slowly.",
+    "expected_facts": [
+      "Model size should account for most additional compute growth.",
+      "Dataset size grows more moderately than model size.",
+      "Optimal serial-step count changes slowly."
+    ],
+    "generated_answer": "As compute increases, the compute-allocation figures suggest that **model size** should grow most rapidly [scaling_law_important_figures_0002, scaling_law_paper_overview_0043].\n\nIn contrast, the other components grow at a much slower pace:\n*   **Dataset size** grows only moderately or slowly [scaling_law_paper_overview_0043, scaling_law_paper_overview_0040].\n*   **Serial training steps** grow very slowly [scaling_law_important_figures_0013, scaling_law_paper_overview_0040].\n\nThe main message is that to be compute-efficient, you should prioritize increasing the size of the model rather than training smaller models for a long time or significantly increasing the number of serial training steps [scaling_law_important_figures_0002, scaling_law_paper_overview_0003].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 3 — Allocation of Increasing Compute",
+        "section": "Figure 3 — Allocation of Increasing Compute",
+        "chunk_id": "scaling_law_important_figures_0002"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Optimal Allocation Result",
+        "section": "Optimal Allocation Result",
+        "chunk_id": "scaling_law_paper_overview_0043"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 14 — Optimal Model Size and Training Steps",
+        "section": "Figure 14 — Optimal Model Size and Training Steps",
+        "chunk_id": "scaling_law_important_figures_0013"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "scaling_law_paper_overview_0003"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Compute-Efficient Training",
+        "section": "Compute-Efficient Training",
+        "chunk_id": "scaling_law_paper_overview_0040"
+      }
+    ],
+    "answerable": true,
+    "category": "figure_interpretation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "scaling-limitations-001",
+    "question": "Why does the paper warn against treating its scaling equations as universal laws or extrapolating them indefinitely?",
+    "reference_answer": "The equations are empirical fits without a solid theoretical foundation, and the authors expect scaling behavior eventually to flatten or change. Predictions far beyond the studied regime may be unreliable, and fitted constants depend on the dataset and tokenization.",
+    "expected_facts": [
+      "The relationships are empirical rather than established fundamental laws.",
+      "Extrapolation far beyond the measured regime is uncertain.",
+      "Scaling may flatten or change.",
+      "Some fitted constants depend on dataset or tokenization."
+    ],
+    "generated_answer": "The paper warns against treating scaling equations as universal laws or extrapolating them indefinitely for several key reasons:\n\n*   **Empirical Nature:** The scaling laws are empirical observations rather than theoretically derived principles [scaling_law_paper_overview_0053]. Because of this, their range of validity is uncertain, especially when applied outside the specific experimental regimes that were studied [scaling_law_paper_overview_0053].\n*   **Risk of Breakdown:** The authors explicitly caution that these empirical relationships may eventually break down, flatten, or change [scaling_law_limitations_0001, scaling_law_applications_0010]. Therefore, predictions made far beyond the experimental data are considered unreliable [scaling_law_limitations_0001].\n*   **Uncertain Universality:** While the authors speculate that similar laws might apply to other generative modeling problems, they do not know which findings are specific to natural language and which are truly universal [scaling_law_paper_overview_0047]. The study specifically focuses on language models and does not establish that its fitted exponents apply to all model types [scaling_law_applications_0015]. \n\nFuture research is required to determine which relationships are universal and which are dependent on the specific experimental setup or the nature of natural language [scaling_law_paper_overview_0053].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Conclusion",
+        "section": "Conclusion",
+        "chunk_id": "scaling_law_paper_overview_0053"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "applications.md",
+        "Header 1": "Research Extrapolation",
+        "section": "Research Extrapolation",
+        "chunk_id": "scaling_law_applications_0010"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "limitations.md",
+        "Header 1": "Extrapolation Risk",
+        "section": "Extrapolation Risk",
+        "chunk_id": "scaling_law_limitations_0001"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Discussion",
+        "section": "Discussion",
+        "chunk_id": "scaling_law_paper_overview_0047"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "applications.md",
+        "Header 1": "Foundation Model Planning",
+        "section": "Foundation Model Planning",
+        "chunk_id": "scaling_law_applications_0015"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "hard"
+  },
+  {
+    "id": "scaling-statistics-001",
+    "question": "What dataset was the primary source for the scaling experiments, and approximately how many documents and tokens did it contain?",
+    "reference_answer": "The primary dataset was WebText2, with approximately 20.3 million documents and 2.29 x 10^10 tokens.",
+    "expected_facts": [
+      "The primary dataset was WebText2.",
+      "It contained about 20.3 million documents.",
+      "It contained about 2.29 x 10^10 tokens."
+    ],
+    "generated_answer": "The primary dataset used for the scaling experiments is WebText2 [chunk_id: scaling_law_paper_statistics_0001]. It contains approximately 20.3 million documents and 2.29 × 10^10 tokens [chunk_id: scaling_law_paper_overview_0015, chunk_id: scaling_law_paper_statistics_0001].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Experimental Setup",
+        "Header 2": "WebText2 Size",
+        "section": "Experimental Setup > WebText2 Size",
+        "chunk_id": "scaling_law_paper_overview_0015"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Primary Dataset",
+        "section": "Primary Dataset",
+        "chunk_id": "scaling_law_paper_statistics_0001"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Model Scaling Experiments",
+        "section": "Model Scaling Experiments",
+        "chunk_id": "scaling_law_paper_statistics_0005"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "terminology.md",
+        "Header 1": "Transformer",
+        "section": "Transformer",
+        "chunk_id": "scaling_law_terminology_0033"
+      },
+      {
+        "paper": "Attention_is_all_you_need",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Paper Statistics",
+        "Header 2": "Batch Information",
+        "section": "Paper Statistics > Batch Information",
+        "chunk_id": "attention_is_all_you_need_paper_statistics_0008"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "medium"
+  },
+  {
+    "id": "scaling-applications-001",
+    "question": "According to the paper's compute-efficient training result, how should model size and dataset size change relative to compute?",
+    "reference_answer": "The reported compute-efficient relationships are approximately Nopt proportional to Cmin^0.73 for optimal model size and Dopt proportional to Cmin^0.27 for optimal dataset size. Thus model size grows faster than dataset size as compute increases.",
+    "expected_facts": [
+      "Optimal model size scales approximately as Cmin^0.73.",
+      "Optimal dataset size scales approximately as Cmin^0.27.",
+      "Model size grows faster than dataset size."
+    ],
+    "generated_answer": "According to the paper, when you have a fixed amount of compute, the most efficient way to improve performance is to prioritize increasing the model size [scaling_law_paper_overview_0003, scaling_law_paper_overview_0040].\n\nHere is how these factors change relative to compute:\n\n*   **Model Size:** This should be the primary focus for additional compute. The paper finds that the optimal model size ($N_{opt}$) grows significantly as compute ($C_{min}$) increases, following the relationship $N_{opt} \\propto C_{min}^{0.73}$ [scaling_law_paper_overview_0040].\n*   **Dataset Size:** While dataset size should also increase, it does so much more modestly compared to model size. The amount of data ($D$) grows at a rate of $D \\propto C_{min}^{0.27}$ [scaling_law_paper_overview_0040].\n\nIn summary, compute-efficient training favors building larger models rather than training smaller models for a significantly longer time or on massive amounts of extra data [scaling_law_paper_important_figures_0002].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "scaling_law_paper_overview_0003"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Main Conclusion",
+        "section": "Main Conclusion",
+        "chunk_id": "scaling_law_paper_statistics_0024"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Compute-Efficient Training",
+        "section": "Compute-Efficient Training",
+        "chunk_id": "scaling_law_paper_overview_0040"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 3 — Allocation of Increasing Compute",
+        "section": "Figure 3 — Allocation of Increasing Compute",
+        "chunk_id": "scaling_law_important_figures_0002"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_statistics.md",
+        "Header 1": "Major Empirical Findings",
+        "section": "Major Empirical Findings",
+        "chunk_id": "scaling_law_paper_statistics_0020"
+      }
+    ],
+    "answerable": true,
+    "category": "cross_fact_synthesis",
+    "difficulty": "hard"
+  },
+  {
+    "id": "scaling-terminology-001",
+    "question": "What is the critical batch size, and what trade-off is it intended to capture?",
+    "reference_answer": "The critical batch size, Bcrit, is an approximate batch size that gives a good trade-off between compute efficiency and training speed. The knowledge base also defines it as the ratio between the minimum examples processed and the minimum optimization steps needed to reach a fixed loss.",
+    "expected_facts": [
+      "Bcrit is a batch-size trade-off between compute efficiency and training speed.",
+      "It can be expressed as Emin divided by Smin for a fixed loss."
+    ],
+    "generated_answer": "The critical batch size, denoted as **Bcrit**, is the approximate batch size that balances the trade-off between training speed and compute efficiency [scaling_law_terminology_0006, scaling_law_key_concepts_0010].\n\nThis trade-off is captured in the following ways:\n\n*   **Efficiency Balance:** When the batch size is below Bcrit, increasing it improves training speed without a significant loss in compute efficiency. Once the batch size exceeds Bcrit, increasing it further leads to diminishing returns in compute efficiency [scaling_law_paper_overview_0039].\n*   **Mathematical Definition:** Bcrit is defined as the ratio between the minimum amount of data required to reach a fixed loss ($E_{min}$) and the minimum number of optimization steps required to reach that same loss ($S_{min}$) [scaling_law_important_equations_0015].\n*   **Relationship to Loss:** The critical batch size is primarily dependent on the loss achieved rather than the size of the model itself [scaling_law_paper_overview_0039, scaling_law_key_concepts_0010].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Critical Batch Size",
+        "section": "Critical Batch Size",
+        "chunk_id": "scaling_law_paper_overview_0039"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_figures.md",
+        "Header 1": "Figure 18 — Batch Size Trade-Off",
+        "section": "Figure 18 — Batch Size Trade-Off",
+        "chunk_id": "scaling_law_important_figures_0017"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "key_concepts.md",
+        "Header 1": "Critical Batch Size",
+        "section": "Critical Batch Size",
+        "chunk_id": "scaling_law_key_concepts_0010"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Critical Batch Size Definition",
+        "section": "Critical Batch Size Definition",
+        "chunk_id": "scaling_law_important_equations_0015"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "terminology.md",
+        "Header 1": "Critical Batch Size",
+        "section": "Critical Batch Size",
+        "chunk_id": "scaling_law_terminology_0006"
+      }
+    ],
+    "answerable": true,
+    "category": "definition_and_synthesis",
+    "difficulty": "hard"
+  },
+  {
+    "id": "scaling-equations-002",
+    "question": "What is the fitted model-size exponent alpha_N, and what does the model-size scaling relationship imply as N increases?",
+    "reference_answer": "The fitted exponent is approximately alpha_N = 0.076. The loss decreases approximately as a power law as the number of non-embedding parameters increases.",
+    "expected_facts": [
+      "alpha_N is approximately 0.076.",
+      "Increasing model size reduces loss approximately according to a power law."
+    ],
+    "generated_answer": "The fitted model-size exponent, denoted as **αN**, is approximately **0.076** [scaling_law_paper_overview_0024, scaling_law_important_equations_0000].\n\nRegarding the model-size scaling relationship, here is what happens as the number of non-embedding parameters (**N**) increases:\n\n*   **Performance Improvement:** Increasing the model size leads to a reduction in language-model loss, meaning the model's performance improves [scaling_law_paper_overview_0024, scaling_law_important_equations_0000].\n*   **Diminishing Returns:** This improvement follows a power law, which means there are diminishing returns [scaling_law_paper_overview_0024]. Specifically, doubling the size of the model does not result in halving the loss; instead, the loss decreases at a much slower rate defined by the small exponent [scaling_law_paper_overview_0024].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Model Size Scaling",
+        "section": "Model Size Scaling",
+        "chunk_id": "scaling_law_paper_overview_0024"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Model Size Scaling",
+        "section": "Model Size Scaling",
+        "chunk_id": "scaling_law_important_equations_0000"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "key_concepts.md",
+        "Header 1": "Model Size",
+        "section": "Model Size",
+        "chunk_id": "scaling_law_key_concepts_0001"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Dataset Size Scaling",
+        "section": "Dataset Size Scaling",
+        "chunk_id": "scaling_law_paper_overview_0025"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "important_equations.md",
+        "Header 1": "Model-Dataset Scaling",
+        "section": "Model-Dataset Scaling",
+        "chunk_id": "scaling_law_important_equations_0009"
+      }
+    ],
+    "answerable": true,
+    "category": "numerical_retrieval",
+    "difficulty": "medium"
+  },
+  {
+    "id": "scaling-limitations-002",
+    "question": "What important computation is omitted by the paper's approximate training-compute formula, and when can that omission matter more?",
+    "reference_answer": "The approximation C approximately equals 6NBS does not include all context-dependent computation. The omitted contribution can become more significant for long contexts, particularly when context length is roughly greater than or comparable to 12 times the model dimension.",
+    "expected_facts": [
+      "The approximate compute formula omits all context-dependent computation.",
+      "The omission matters more for sufficiently long contexts.",
+      "The limitations document identifies nctx greater than or approximately equal to 12 dmodel as a relevant regime."
+    ],
+    "generated_answer": "The paper's approximate training-compute formula, $C \\approx 6NBS$, does not include all context-dependent computation [scaling_law_limitations_0008]. \n\nThis omission can become more significant when the context length becomes sufficiently large, as the compute scaling relationships may become inaccurate under those conditions [scaling_law_limitations_0008].",
+    "sources": [
+      {
+        "paper": "scaling law",
+        "source_file": "limitations.md",
+        "Header 1": "Compute Approximation",
+        "section": "Compute Approximation",
+        "chunk_id": "scaling_law_limitations_0008"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Important Variables",
+        "Header 2": "Compute",
+        "section": "Important Variables > Compute",
+        "chunk_id": "scaling_law_paper_overview_0020"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Compute Scaling",
+        "section": "Compute Scaling",
+        "chunk_id": "scaling_law_paper_overview_0026"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Compute Estimation",
+        "section": "Compute Estimation",
+        "chunk_id": "scaling_law_paper_overview_0030"
+      },
+      {
+        "paper": "scaling law",
+        "source_file": "paper_overview.md",
+        "Header 1": "Paper Overview",
+        "Header 2": "Paper Summary",
+        "section": "Paper Overview > Paper Summary",
+        "chunk_id": "scaling_law_paper_overview_0003"
+      }
+    ],
+    "answerable": true,
+    "category": "limitations",
+    "difficulty": "hard"
+  }
+]

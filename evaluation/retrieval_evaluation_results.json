@@ -1,0 +1,19 @@
+{
+  "summary": {
+    "total_tests": 50,
+    "labeled_tests": 48,
+    "unlabeled_tests": 2
+  },
+  "baseline_metrics": {
+    "recall_at_1": 0.5,
+    "recall_at_3": 0.75,
+    "recall_at_5": 0.875,
+    "mrr": 0.6624338624338625
+  },
+  "hybrid_metrics": {
+    "recall_at_1": 0.4583333333333333,
+    "recall_at_3": 0.8333333333333334,
+    "recall_at_5": 0.9583333333333334,
+    "mrr": 0.6482638888888889
+  }
+}

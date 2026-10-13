@@ -1,3 +1,5 @@
+from pathlib import Path
+import re
 from langchain_text_splitters import (
     MarkdownHeaderTextSplitter,
     RecursiveCharacterTextSplitter
@@ -114,6 +116,30 @@ def chunk_docs(documents):
                     )
 
                     final_chunks.extend(small_chunks)
+
+    chunk_counts = {}
+
+    for chunk in final_chunks:
+        paper = str(chunk.metadata.get("paper", "unknown"))
+        source_file = str(chunk.metadata.get("source_file", "unknown"))
+        counter_key = (paper, source_file)
+        local_chunk_index = chunk_counts.get(counter_key, 0)
+
+        paper_id = re.sub(
+            r"[^a-z0-9]+",
+            "_",
+            paper.lower()
+        ).strip("_") or "unknown"
+        source_id = re.sub(
+            r"[^a-z0-9]+",
+            "_",
+            Path(source_file).stem.lower()
+        ).strip("_") or "unknown"
+
+        chunk.metadata["chunk_id"] = (
+            f"{paper_id}_{source_id}_{local_chunk_index:04d}"
+        )
+        chunk_counts[counter_key] = local_chunk_index + 1
 
     print(f"Total chunks created: {len(final_chunks)}")
 

@@ -28,6 +28,9 @@ def fetch_documents():
 
             metadata = yaml.safe_load(parts[1])
             metadata["source_file"] = file.name
+            if "paper" in metadata:
+                metadata["paper_title"] = metadata["paper"]
+            metadata["paper"] = folder.name
 
             page_content = parts[2].strip()
             # Remove standalone --- separators

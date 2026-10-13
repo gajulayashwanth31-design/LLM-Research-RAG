@@ -14,5 +14,11 @@ def get_vector_store(embedding_model):
 
 
 def add_documents(vector_store, chunks):
-    vector_store.add_documents(chunks)
+    ids = [chunk.metadata["chunk_id"] for chunk in chunks]
+
+    vector_store.add_documents(
+        documents=chunks,
+        ids=ids
+    )
+
     print(f"Added {len(chunks)} chunks to ChromaDB")
